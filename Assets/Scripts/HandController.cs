@@ -17,10 +17,10 @@ public class HandController : MonoBehaviour
         velocity = Vector3.Lerp(velocity, newVelocity, 0.5f);
         lastPosition = controllerTransform.position;
 
-        if (currentBall != null)
-        {
-            Debug.Log("Velocidad Y: " + velocity.y);
-        }
+        // if (currentBall != null)
+        // {
+        //     Debug.Log("Velocidad Y: " + velocity.y);
+        // }
 
         // Si está agarrada y me muevo rápido hacia abajo → soltar para dribble
         if (currentBall != null && velocity.y < -1.0f)
@@ -52,5 +52,11 @@ public class HandController : MonoBehaviour
     public BallController GetCurrentBall()
     {
         return currentBall;
+    }
+
+    public void ClearBall()
+    {
+        currentBall = null;
+        lastReleaseTime = Time.time;
     }
 }

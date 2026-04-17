@@ -16,14 +16,19 @@ public class ShootingController : MonoBehaviour
     void Update()
     {
         currentBall = handController.GetCurrentBall();
+
+        if (currentBall != null)
+        {
+            Debug.Log("PELOTA EN MANO: " + currentBall);
+        }
         
         bool pressed = triggerAction.action.ReadValue<float>() > 0.1f;
 
-        if (pressed && !wasPressedLastFrame)
-            Debug.Log("TRIGGER DOWN");
+        // if (pressed && !wasPressedLastFrame)
+        //     Debug.Log("TRIGGER DOWN");
 
-        if (!pressed && wasPressedLastFrame)
-            Debug.Log("TRIGGER UP");
+        // if (!pressed && wasPressedLastFrame)
+        //     Debug.Log("TRIGGER UP");
 
         // 🟢 SOLO cuando empieza a apretar
         if (pressed && !wasPressedLastFrame && currentBall != null)
@@ -46,6 +51,8 @@ public class ShootingController : MonoBehaviour
     void Shoot()
     {
         Debug.Log("DISPARANDO: " + currentBall);
+
+        handController.ClearBall();
 
         Rigidbody rb = currentBall.rb;
 
