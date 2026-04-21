@@ -8,6 +8,7 @@ public class BallController : MonoBehaviour
     [Header("Grab")]
     public bool isHeld = false;
     public Transform holdPoint;
+    public Vector3 holdLocalOffset = new Vector3(0f, -0.08f, 0f);
 
     [Header("Dribble")]
     public float minVelocity = 0.5f;
@@ -22,9 +23,10 @@ public class BallController : MonoBehaviour
     {
         if (isHeld && holdPoint != null)
         {
+            Vector3 targetPosition = holdPoint.TransformPoint(holdLocalOffset);
             transform.position = Vector3.Lerp(
                 transform.position,
-                holdPoint.position,
+                targetPosition,
                 10f * Time.deltaTime
             );        
         }
