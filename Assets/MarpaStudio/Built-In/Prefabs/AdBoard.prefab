@@ -49,12 +49,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 42f9f685235aafe4d9a20327e0a4ee55, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 435555a3473ebc242a710531eddaffab, type: 2}
+      objectReference: {fileID: 2100000, guid: c1e7bc7b19b55ba4f935a0f31aef17fe, type: 2}
     - target: {fileID: 919132149155446097, guid: 42f9f685235aafe4d9a20327e0a4ee55, type: 3}
       propertyPath: m_Name
-      value: AdBoard 1
+      value: AdBoard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
