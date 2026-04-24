@@ -49,9 +49,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 7e4270814c2e8404ca09f66c08ea186a, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 94d52d941ae2c30468e023f775e0b6e7, type: 2}
+      objectReference: {fileID: 2100000, guid: 5d19fbfa262b1e84daccd139b159bb12, type: 2}
     - target: {fileID: 919132149155446097, guid: 7e4270814c2e8404ca09f66c08ea186a, type: 3}
       propertyPath: m_Name
       value: SeatEntrance
