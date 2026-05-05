@@ -15,6 +15,7 @@ namespace BasketballVR.AI
         public Transform playerTransform;
         public Ball ball;
         public Transform basketHoop; // Needed for PressureAction
+        public Transform handTransform; // Point where the NPC will hold the ball
 
         private void Awake()
         {
@@ -79,4 +80,3 @@ namespace BasketballVR.AI
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
     }
 }
-
