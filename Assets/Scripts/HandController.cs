@@ -49,6 +49,15 @@ public class HandController : MonoBehaviour
         }
     }
 
+    public void GrabBall(BallController ball, bool force = false)
+    {
+        if (force || (currentBall == null && Time.time - lastReleaseTime > grabCooldown))
+        {
+            ball.Grab(controllerTransform);
+            currentBall = ball;
+        }
+    }
+
     public BallController GetCurrentBall()
     {
         return currentBall;
