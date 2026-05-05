@@ -20,7 +20,7 @@ public class NetPhysics : MonoBehaviour
     [Tooltip("Offset of the trigger zone relative to this object (local space).")]
     public Vector3 triggerOffset = new Vector3(0f, 0.3f, 0f);
 
-    private Cloth netCloth;
+    [SerializeField] private Cloth netCloth;
     private float deactivateTimer = -1f;
     private GameObject triggerObject;
 
@@ -36,14 +36,13 @@ public class NetPhysics : MonoBehaviour
         }
 
         // Configure cloth physics
-        netCloth.damping = 0.3f;
         netCloth.stretchingStiffness = 0.8f;
         netCloth.bendingStiffness = 0.5f;
         netCloth.externalAcceleration = Vector3.zero;
         netCloth.randomAcceleration = Vector3.zero;
 
-        // Cloth starts disabled (static net, no performance cost)
-        netCloth.enabled = false;
+        // Cloth starts "disabled" (high damping)
+        netCloth.damping = 100f;
 
         // Create the trigger zone as a child object
         CreateTriggerZone();
@@ -79,7 +78,7 @@ public class NetPhysics : MonoBehaviour
             deactivateTimer -= Time.deltaTime;
 
             // Gradually reduce external force for a natural settling
-            if (netCloth != null && netCloth.enabled)
+            if (netCloth != null)
             {
                 float t = Mathf.Clamp01(deactivateTimer / activeTime);
                 netCloth.externalAcceleration *= t;
@@ -96,8 +95,8 @@ public class NetPhysics : MonoBehaviour
     {
         if (netCloth == null) return;
 
-        // Enable cloth simulation
-        netCloth.enabled = true;
+        // Enable cloth simulation by reducing damping
+        netCloth.damping = 0.3f;
 
         // Apply force based on ball velocity
         Rigidbody ballRb = ballCollider.GetComponent<Rigidbody>();
@@ -128,7 +127,8 @@ public class NetPhysics : MonoBehaviour
         if (netCloth != null)
         {
             netCloth.externalAcceleration = Vector3.zero;
-            netCloth.enabled = false;
+            // Disable cloth simulation by increasing damping
+            netCloth.damping = 100f;
         }
     }
 }
