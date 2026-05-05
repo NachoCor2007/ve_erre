@@ -206,6 +206,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 18b295b00d9be51438d3c765f62aff3c, type: 2}
   - {fileID: 11400000, guid: fcae10c3dc1a12f4eacedc994c0e3ae6, type: 2}
   - {fileID: 11400000, guid: ac3cacb0290edd04489a9eb16d4a843b, type: 2}
+  - {fileID: 11400000, guid: 14f3d7d471208aa44af371f30302680b, type: 2}
   playerTransform: {fileID: 441087508}
   ball: {fileID: 3383073436869171856}
   basketHoop: {fileID: 0}

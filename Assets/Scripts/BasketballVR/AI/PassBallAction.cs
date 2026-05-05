@@ -16,19 +16,23 @@ namespace BasketballVR.AI
 
         public override void Execute(NPCController npc)
         {
-            if (npc.ball != null && !_ballPassed)
+            if (npc.ball == null || _ballPassed)
             {
-                // Assuming the NPC "has" the ball if it's close enough
-                if (Vector3.Distance(npc.transform.position, npc.ball.transform.position) < 2.0f) 
-                {
-                    Rigidbody ballRb = npc.ball.GetComponent<Rigidbody>();
-                    if (ballRb != null)
-                    {
-                        Vector3 direction = (npc.playerTransform.position - npc.ball.transform.position).normalized;
-                        ballRb.AddForce(direction * _passForce, ForceMode.Impulse);
-                        _ballPassed = true;
-                    }
-                }
+                return;
+            }
+
+            var ballController = npc.ball.GetComponent<BallController>();
+
+            // Check if the NPC is currently holding the ball
+            if (ballController != null && ballController.isHeld && ballController.holdPoint == npc.handTransform)
+            {
+                // Calculate pass direction and apply force by releasing the ball
+                Vector3 passDirection = (npc.playerTransform.position - npc.transform.position).normalized;
+                Vector3 passVelocity = passDirection * _passForce;
+                
+                ballController.Release(passVelocity);
+                
+                _ballPassed = true;
             }
         }
 
