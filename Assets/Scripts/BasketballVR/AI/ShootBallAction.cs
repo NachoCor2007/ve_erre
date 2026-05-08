@@ -38,9 +38,19 @@ namespace BasketballVR.AI
                 Vector3 shootDirection = (npc.basketHoop.position - npc.handTransform.position).normalized;
                 Vector3 shootVelocity = (shootDirection * _shootForce) + (Vector3.up * _upwardForce);
 
+                // Mover bola un poco hacia adelante de la mano para que no roce colisionadores
+                ballController.transform.position += shootDirection * 0.2f;
+
                 // 3. Release the ball with the calculated velocity
                 ballController.Release(shootVelocity);
                 
+                // NOTIFICAR que la pelota fue lanzada para aplicar cooldown al CatchTrigger del NPC
+                var catchTrigger = npc.GetComponentInChildren<NPCCatchTrigger>();
+                if (catchTrigger != null)
+                {
+                    catchTrigger.NotifyBallReleased();
+                }
+
                 _ballShot = true;
             }
         }
@@ -51,4 +61,3 @@ namespace BasketballVR.AI
         }
     }
 }
-

@@ -10,6 +10,7 @@ namespace BasketballVR.AI
     public class NPCCatchTrigger : MonoBehaviour
     {
         private NPCController _npcController;
+        private float _lastCatchTime; // Añadimos un cooldown para evitar que agarre la pelota inmediatamente tras soltarla/tirarla.
 
         private void Awake()
         {
@@ -30,18 +31,27 @@ namespace BasketballVR.AI
 
         private void OnTriggerEnter(Collider other)
         {
+            // Evitar loop de agarrar la pelota exactamente cuando fue lanzada desde la misma mano
+            if (Time.time - _lastCatchTime < 0.5f) return;
+
             // Check if the object that entered the trigger is the ball
             if (other.CompareTag("Ball"))
             {
                 var ballController = other.GetComponent<BallController>();
                 if (ballController != null && !ballController.isHeld)
                 {
+                    _lastCatchTime = Time.time;
                     // Tell the ball to be grabbed by the NPC's hand
                     ballController.holdLocalOffset = Vector3.zero;
                     ballController.Grab(_npcController.handTransform);
                 }
             }
         }
+
+        // Método auxiliar para informarle al CatchTrigger que la pelota acaba de ser lanzada, para forzar cooldown.
+        public void NotifyBallReleased()
+        {
+            _lastCatchTime = Time.time;
+        }
     }
 }
-

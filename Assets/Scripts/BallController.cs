@@ -24,11 +24,7 @@ public class BallController : MonoBehaviour
         if (isHeld && holdPoint != null)
         {
             Vector3 targetPosition = holdPoint.TransformPoint(holdLocalOffset);
-            transform.position = Vector3.Lerp(
-                transform.position,
-                targetPosition,
-                10f * Time.deltaTime
-            );        
+            transform.position = targetPosition;
         }
     }
 
@@ -44,11 +40,7 @@ public class BallController : MonoBehaviour
         isHeld = false;
         holdPoint = null;
         rb.isKinematic = false;
-        rb.linearVelocity = new Vector3(
-            velocity.x,
-            Math.Min(velocity.y, -2f),
-            velocity.z
-        );
+        rb.linearVelocity = velocity;
     }
 
     public void ApplyBounce(Vector3 handVelocity)
