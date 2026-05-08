@@ -53,26 +53,10 @@ public class ShootingController : MonoBehaviour
         Debug.Log("DISPARANDO: " + _currentBall);
 
         handController.ClearBall();
-
-        Rigidbody rb = _currentBall.rb;
-
+        
         // fuerza hacia adelante + un poco hacia arriba
-        Vector3 shootVelocity =
-            shootPoint.forward * 8f +
-            shootPoint.up * 2f;
+        Vector3 shootVelocity = shootPoint.right * (-8f);
 
         _currentBall.Release(shootVelocity, handController);
     }
-
-    // Detectar pelota cercana (igual que tu grab)
-    // void OnTriggerStay(Collider other)
-    // {
-    //     if (other.CompareTag("Ball"))
-    //     {
-    //         if (currentBall == null)
-    //         {
-    //             currentBall = other.GetComponent<BallController>();
-    //         }
-    //     }
-    // }
 }
