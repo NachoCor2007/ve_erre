@@ -29,7 +29,7 @@ public class HandController : MonoBehaviour
         if (currentBall != null && velocity.y < -1.0f)
         {
             lastReleaseTime = Time.time;
-            currentBall.Release(velocity);
+            currentBall.Release(velocity, this);
             currentBall = null;
         }
     }
@@ -43,6 +43,8 @@ public class HandController : MonoBehaviour
             // Si no está agarrada → agarrar automáticamente
             if (!ball.isHeld && currentBall == null)
             {
+                if (ball.lastHandThatThrew == this) return;
+
                 if (Time.time - lastReleaseTime > grabCooldown && velocity.y > -0.5f)
                 {
                     ball.holdLocalOffset = grabOffset;

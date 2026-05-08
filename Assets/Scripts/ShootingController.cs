@@ -56,17 +56,12 @@ public class ShootingController : MonoBehaviour
 
         Rigidbody rb = _currentBall.rb;
 
-        _currentBall.isHeld = false;
-        _currentBall.holdPoint = null;
-
-        rb.isKinematic = false;
-
         // fuerza hacia adelante + un poco hacia arriba
         Vector3 shootVelocity =
             shootPoint.forward * 8f +
             shootPoint.up * 2f;
 
-        rb.linearVelocity = shootVelocity;
+        _currentBall.Release(shootVelocity, handController);
     }
 
     // Detectar pelota cercana (igual que tu grab)

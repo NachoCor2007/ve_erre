@@ -14,6 +14,8 @@ public class BallController : MonoBehaviour
     public float minVelocity = 0.5f;
     public float bounceMultiplier = 1.2f;
 
+    public HandController lastHandThatThrew;
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -33,14 +35,27 @@ public class BallController : MonoBehaviour
         isHeld = true;
         holdPoint = hand;
         rb.isKinematic = true;
+        
+        HandController handController = hand.GetComponentInParent<HandController>();
+        if (handController != null && handController != lastHandThatThrew)
+        {
+            lastHandThatThrew = null;
+        }
     }
 
-    public void Release(Vector3 velocity)
+    public void Release(Vector3 velocity, HandController hand = null)
     {
         isHeld = false;
         holdPoint = null;
         rb.isKinematic = false;
         rb.linearVelocity = velocity;
+        lastHandThatThrew = hand;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // Enforce bounce reset
+        lastHandThatThrew = null;
     }
 
     public void ApplyBounce(Vector3 handVelocity)
