@@ -8,18 +8,18 @@ public class ShootingController : MonoBehaviour
     public Transform shootPoint; // referencia al controller
     public InputActionProperty triggerAction;
     
-    private BallController currentBall;
-    private bool isShooting = false;
-    bool wasPressedLastFrame = false;
+    private BallController _currentBall;
+    private bool _isShooting = false;
+    bool _wasPressedLastFrame = false;
     public HandController handController;
 
     void Update()
     {
-        currentBall = handController.GetCurrentBall();
+        _currentBall = handController.GetCurrentBall();
 
-        if (currentBall != null)
+        if (_currentBall != null)
         {
-            Debug.Log("PELOTA EN MANO: " + currentBall);
+            Debug.Log("PELOTA EN MANO: " + _currentBall);
         }
         
         bool pressed = triggerAction.action.ReadValue<float>() > 0.1f;
@@ -31,33 +31,33 @@ public class ShootingController : MonoBehaviour
         //     Debug.Log("TRIGGER UP");
 
         // 🟢 SOLO cuando empieza a apretar
-        if (pressed && !wasPressedLastFrame && currentBall != null)
+        if (pressed && !_wasPressedLastFrame && _currentBall != null)
         {
-            isShooting = true;
-            currentBall.Grab(shootPoint);
+            _isShooting = true;
+            _currentBall.Grab(shootPoint);
         }
 
         // 🔴 SOLO cuando suelta
-        if (!pressed && wasPressedLastFrame && isShooting && currentBall != null)
+        if (!pressed && _wasPressedLastFrame && _isShooting && _currentBall != null)
         {
             Shoot();
-            isShooting = false;
-            currentBall = null;
+            _isShooting = false;
+            _currentBall = null;
         }
 
-        wasPressedLastFrame = pressed;
+        _wasPressedLastFrame = pressed;
     }
 
     void Shoot()
     {
-        Debug.Log("DISPARANDO: " + currentBall);
+        Debug.Log("DISPARANDO: " + _currentBall);
 
         handController.ClearBall();
 
-        Rigidbody rb = currentBall.rb;
+        Rigidbody rb = _currentBall.rb;
 
-        currentBall.isHeld = false;
-        currentBall.holdPoint = null;
+        _currentBall.isHeld = false;
+        _currentBall.holdPoint = null;
 
         rb.isKinematic = false;
 
