@@ -42,6 +42,7 @@ public class HandController : MonoBehaviour
             {
                 if (Time.time - lastReleaseTime > grabCooldown)
                 {
+                    ball.holdLocalOffset = new Vector3(0f, -0.08f, 0f);
                     ball.Grab(controllerTransform);
                     currentBall = ball;
                 }
@@ -53,6 +54,7 @@ public class HandController : MonoBehaviour
     {
         if (force || (currentBall == null && Time.time - lastReleaseTime > grabCooldown))
         {
+            ball.holdLocalOffset = new Vector3(0f, -0.08f, 0f);
             ball.Grab(controllerTransform);
             currentBall = ball;
         }

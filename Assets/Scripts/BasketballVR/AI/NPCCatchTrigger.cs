@@ -37,6 +37,7 @@ namespace BasketballVR.AI
                 if (ballController != null && !ballController.isHeld)
                 {
                     // Tell the ball to be grabbed by the NPC's hand
+                    ballController.holdLocalOffset = Vector3.zero;
                     ballController.Grab(_npcController.handTransform);
                 }
             }
