@@ -6,6 +6,7 @@ namespace BasketballVR.AI
     public class PassBallAction : NPCAction
     {
         [SerializeField] private float _passForce = 10f;
+        [SerializeField] private float _upwardForce = 2f;
         private bool _ballPassed;
 
         public override void Initialize(NPCController npc)
@@ -28,10 +29,20 @@ namespace BasketballVR.AI
             {
                 // Calculate pass direction and apply force by releasing the ball
                 Vector3 passDirection = (npc.playerTransform.position - npc.transform.position).normalized;
-                Vector3 passVelocity = passDirection * _passForce;
+                Vector3 passVelocity = (passDirection * _passForce) + (Vector3.up * _upwardForce);
                 
+                // Mover bola un poco hacia adelante de la mano para que no roce colisionadores
+                ballController.transform.position += passDirection * 0.2f;
+
                 ballController.Release(passVelocity);
                 
+                // NOTIFICAR que la pelota fue lanzada para aplicar cooldown al CatchTrigger del NPC
+                var catchTrigger = npc.GetComponentInChildren<NPCCatchTrigger>();
+                if (catchTrigger != null)
+                {
+                    catchTrigger.NotifyBallReleased();
+                }
+
                 _ballPassed = true;
             }
         }

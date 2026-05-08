@@ -210,7 +210,7 @@ MonoBehaviour:
   playerTransform: {fileID: 441087508}
   ball: {fileID: 3383073436869171856}
   basketHoop: {fileID: 0}
-  handTransform: {fileID: 98888557}
+  handTransform: {fileID: 402244452}
 --- !u!195 &98888556
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -233,11 +233,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!4 &98888557 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6264078077167117473, guid: 81bb9eea30387e442899949a80011e55, type: 3}
-  m_PrefabInstance: {fileID: 98888553}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &98888558 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 81bb9eea30387e442899949a80011e55, type: 3}
@@ -435,6 +430,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8205387677048131282, guid: 8ba5c2afcc9239943ba6186c705bbbf1, type: 3}
   m_PrefabInstance: {fileID: 323366127}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &402244452 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4372587343206045713, guid: 81bb9eea30387e442899949a80011e55, type: 3}
+  m_PrefabInstance: {fileID: 98888553}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &441087506
 PrefabInstance:
