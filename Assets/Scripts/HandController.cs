@@ -3,6 +3,9 @@ using UnityEngine;
 public class HandController : MonoBehaviour
 {
     public Transform controllerTransform;
+    
+    [Header("Grip Settings")]
+    public Vector3 grabOffset = new Vector3(0f, -0.08f, 0f);
 
     private Vector3 lastPosition;
     public Vector3 velocity;
@@ -40,10 +43,9 @@ public class HandController : MonoBehaviour
             // Si no está agarrada → agarrar automáticamente
             if (!ball.isHeld && currentBall == null)
             {
-                // Solo agarrar si pasaron 0.3s desde que la soltó, y si NO está bajando la mano fuertemente (para que rebote).
-                if (Time.time - lastReleaseTime > 0.35f && velocity.y > -0.5f)
+                if (Time.time - lastReleaseTime > grabCooldown && velocity.y > -0.5f)
                 {
-                    ball.holdLocalOffset = new Vector3(0f, -0.08f, 0f);
+                    ball.holdLocalOffset = grabOffset;
                     ball.Grab(controllerTransform);
                     currentBall = ball;
                 }
@@ -53,9 +55,9 @@ public class HandController : MonoBehaviour
 
     public void GrabBall(BallController ball, bool force = false)
     {
-        if (force || (currentBall == null && Time.time - lastReleaseTime > 0.35f))
+        if (force || (currentBall == null && Time.time - lastReleaseTime > grabCooldown))
         {
-            ball.holdLocalOffset = new Vector3(0f, -0.08f, 0f);
+            ball.holdLocalOffset = grabOffset;
             ball.Grab(controllerTransform);
             currentBall = ball;
         }
