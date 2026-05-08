@@ -28,7 +28,7 @@ namespace BasketballVR.AI
             if (ballController != null && ballController.isHeld && ballController.holdPoint == npc.handTransform)
             {
                 // Calculate pass direction and apply force by releasing the ball
-                Vector3 passDirection = (npc.playerTransform.position - npc.transform.position).normalized;
+                Vector3 passDirection = (npc.playerTransform.position - npc.handTransform.position).normalized;
                 Vector3 passVelocity = (passDirection * _passForce) + (Vector3.up * _upwardForce);
                 
                 // Mover bola un poco hacia adelante de la mano para que no roce colisionadores
