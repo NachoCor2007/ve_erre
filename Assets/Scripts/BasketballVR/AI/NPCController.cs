@@ -27,6 +27,12 @@ namespace BasketballVR.AI
             InitializeActions();
         }
 
+        public void SetActionSequence(List<NPCAction> newActionSequence)
+        {
+            _actionSequence = newActionSequence;
+            InitializeActions();
+        }
+
         private void InitializeActions()
         {
             if (_actionSequence != null && _actionSequence.Count > 0)

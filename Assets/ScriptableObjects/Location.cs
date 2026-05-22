@@ -8,5 +8,7 @@ namespace ScriptableObjects
   public class Location : ScriptableObject
   {
     [SerializeField] private Vector3 _position;
+
+    public Vector3 Position => _position;
   }
 }
