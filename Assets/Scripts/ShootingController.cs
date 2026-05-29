@@ -16,11 +16,6 @@ public class ShootingController : MonoBehaviour
     void Update()
     {
         _currentBall = handController.GetCurrentBall();
-
-        if (_currentBall != null)
-        {
-            Debug.Log("PELOTA EN MANO: " + _currentBall);
-        }
         
         bool pressed = triggerAction.action.ReadValue<float>() > 0.1f;
 
