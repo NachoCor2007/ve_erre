@@ -16,4 +16,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75a08ee33f4d08145a43d3ae4c065e5d, type: 2}
   _playerLocation: {fileID: 11400000, guid: 514698a6589a05e49890dbc1ff4cd875, type: 2}
   _winCondition: {fileID: 0}
-  _ballPrefab: {fileID: 1139466697235247536, guid: 2ee2358b473e9a64488e5562a97d8853, type: 3}
+  _ballPrefab: {fileID: 7366536563622355276, guid: fdc493894536100409f6c8b7e2d6ffc8, type: 3}

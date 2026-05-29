@@ -27,8 +27,14 @@ namespace BasketballVR.AI
             // Check if the NPC is currently holding the ball
             if (ballController != null && ballController.isHeld && ballController.holdPoint == npc.handTransform)
             {
-                // Calculate pass direction and apply force by releasing the ball
-                Vector3 passDirection = (npc.playerTransform.position - npc.handTransform.position).normalized;
+                // Obtenemos la posición real del jugador en el espacio físico usando la cámara en lugar del XROrigin (suelo)
+                // y bajamos el objetivo levemente para apuntar al pecho/manos.
+                Vector3 targetPosition = Camera.main != null ? 
+                    Camera.main.transform.position + Vector3.down * 0.35f : 
+                    npc.playerTransform.position + Vector3.up * 1.2f;
+
+                // Calculamos la dirección del pase tomando como origen LA MANO del NPC, hacia el objetivo exacto.
+                Vector3 passDirection = (targetPosition - npc.handTransform.position).normalized;
                 Vector3 passVelocity = (passDirection * _passForce) + (Vector3.up * _upwardForce);
                 
                 // Mover bola un poco hacia adelante de la mano para que no roce colisionadores
