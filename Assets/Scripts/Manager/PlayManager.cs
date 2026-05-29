@@ -26,6 +26,15 @@ namespace Manager
             _currentPlayIndex = playIndex;
         }
 
+        public Play GetCurrentPlay()
+        {
+            if (_playsList != null && _currentPlayIndex >= 0 && _currentPlayIndex < _playsList.Count)
+            {
+                return _playsList[_currentPlayIndex];
+            }
+            return null;
+        }
+
         public void SetUpPlay()
         {
             if (_playsList == null || _playsList.Count == 0 || _currentPlayIndex < 0 || _currentPlayIndex >= _playsList.Count)

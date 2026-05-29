@@ -26,6 +26,7 @@ namespace BasketballVR.AI
             Vector3 targetPosition = npc.playerTransform.position + playerToHoopDir * _distanceFromPlayer;
             
             npc.NavMeshAgent.SetDestination(targetPosition);
+            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

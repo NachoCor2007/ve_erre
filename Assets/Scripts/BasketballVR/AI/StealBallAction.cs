@@ -21,7 +21,10 @@ namespace BasketballVR.AI
 
         public override void Execute(NPCController npc)
         {
-            if (npc.ball == null || _ballStolen) return;
+            if (npc.ball == null || npc.playerTransform == null || _ballStolen)
+            {
+                return;
+            }
 
             npc.NavMeshAgent.SetDestination(npc.ball.transform.position);
 
@@ -31,6 +34,7 @@ namespace BasketballVR.AI
                 _ballStolen = true;
                 npc.NavMeshAgent.speed = _originalSpeed; // Reset speed
             }
+            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

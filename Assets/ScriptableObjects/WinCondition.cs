@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using BasketballVR.AI;
 using UnityEngine;
+using BasketballVR.AI;
 
 namespace ScriptableObjects
 {
@@ -9,5 +8,19 @@ namespace ScriptableObjects
   public class WinCondition : ScriptableObject
   {
     [SerializeField] private String _conditionDescription;
+
+    public bool CheckIfDone()
+    {
+      NPCController[] npcsInScene = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
+      
+      foreach (var npc in npcsInScene)
+      {
+        if (!npc.AreAllActionsSuccessful())
+        {
+          return false;
+        }
+      }
+      return true;
+    }
   }
 }

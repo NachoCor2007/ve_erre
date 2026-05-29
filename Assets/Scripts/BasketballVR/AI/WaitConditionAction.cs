@@ -29,7 +29,9 @@ namespace BasketballVR.AI
 
         public override void Execute(NPCController npc)
         {
-            // This action is a waiting state, so no execution logic is needed.
+            // The wait logic is handled within the WaitCondition. 
+            // The Execute method simply continues tracking until IsFinished returns true.
+            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

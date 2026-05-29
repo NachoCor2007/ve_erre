@@ -15,5 +15,5 @@ MonoBehaviour:
   _npcConfigs:
   - {fileID: 11400000, guid: 75a08ee33f4d08145a43d3ae4c065e5d, type: 2}
   _playerLocation: {fileID: 11400000, guid: 514698a6589a05e49890dbc1ff4cd875, type: 2}
-  _winCondition: {fileID: 0}
+  _winCondition: {fileID: 11400000, guid: bfe7b8a5c2232ae47bd2217ac065311f, type: 2}
   _ballPrefab: {fileID: 7366536563622355276, guid: fdc493894536100409f6c8b7e2d6ffc8, type: 3}

@@ -17,6 +17,7 @@ namespace BasketballVR.AI
         public override void Execute(NPCController npc)
         {
             // The movement is handled by NavMeshAgent, so nothing to do here.
+            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

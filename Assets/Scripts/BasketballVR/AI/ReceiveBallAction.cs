@@ -28,6 +28,7 @@ namespace BasketballVR.AI
             {
                 _hasReceivedBall = true;
             }
+            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

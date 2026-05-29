@@ -53,6 +53,7 @@ namespace BasketballVR.AI
 
                 _ballShot = true;
             }
+            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)
