@@ -25,14 +25,12 @@ public class ShootingController : MonoBehaviour
         // if (!pressed && wasPressedLastFrame)
         //     Debug.Log("TRIGGER UP");
 
-        // 🟢 SOLO cuando empieza a apretar
         if (pressed && !_wasPressedLastFrame && _currentBall != null)
         {
             _isShooting = true;
             _currentBall.Grab(shootPoint);
         }
 
-        // 🔴 SOLO cuando suelta
         if (!pressed && _wasPressedLastFrame && _isShooting && _currentBall != null)
         {
             Shoot();
