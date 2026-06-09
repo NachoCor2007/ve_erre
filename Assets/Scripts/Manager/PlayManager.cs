@@ -10,6 +10,8 @@ namespace Manager
         [SerializeField] private List<Play> _playsList;
         [SerializeField] private int _currentPlayIndex;
         [SerializeField] private HandController _playerHand;
+        [SerializeField] private GameObject _playsMenuUIReference;
+        [SerializeField] private Vector3 _defaultPlayerLocation = Vector3.zero;
 
         List<Play> GetPlaysList()
         {
@@ -37,6 +39,8 @@ namespace Manager
 
         public void SetUpPlay()
         {
+            _playsMenuUIReference.SetActive(false);
+
             if (_playsList == null || _playsList.Count == 0 || _currentPlayIndex < 0 || _currentPlayIndex >= _playsList.Count)
                 return;
 
@@ -116,9 +120,17 @@ namespace Manager
             }
         }
 
-        void EndPlay()
+        public void EndPlay()
         {
-            
+            Debug.Log("Play is successfully done! Requirements met inside PlayManager.");
+
+            Unity.XR.CoreUtils.XROrigin playerOrigin = FindFirstObjectByType<Unity.XR.CoreUtils.XROrigin>();
+            if (playerOrigin != null)
+            {
+                playerOrigin.transform.position = _defaultPlayerLocation;
+            }
+
+            _playsMenuUIReference.SetActive(true);
         }
     }
 }

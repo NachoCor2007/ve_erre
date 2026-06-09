@@ -8,9 +8,20 @@ namespace BasketballVR
     {
         [Tooltip("The tag of the ball to compare against.")]
         [SerializeField] private string _ballTag = "Ball";
+        [SerializeField] private PlayManager _playManager;
+        [SerializeField] private GameObject _playCompletedUIReference;
 
         private int _ballGoingDownHash;
         private Rigidbody _trackedBallRb;
+
+        private void Awake()
+        {
+            _playManager = FindFirstObjectByType<PlayManager>();
+            if (_playManager == null)
+            {
+                Debug.LogError("PlayManager not found in the scene. Please ensure there is a PlayManager present.");
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -59,8 +70,7 @@ namespace BasketballVR
 
         private void EndPlay()
         {
-            Debug.Log("Play is successfully done! Requirements met.");
-            // Further logic for ending the play goes here
+            _playCompletedUIReference.SetActive(true);
         }
     }
 }
