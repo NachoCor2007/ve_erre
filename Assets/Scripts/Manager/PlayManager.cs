@@ -13,6 +13,9 @@ namespace Manager
         [SerializeField] private GameObject _playsMenuUIReference;
         [SerializeField] private Vector3 _defaultPlayerLocation = Vector3.zero;
 
+        private List<GameObject> _instantiatedNpcs = new List<GameObject>();
+        private GameObject _instantiatedBall;
+
         List<Play> GetPlaysList()
         {
             return _playsList;
@@ -45,11 +48,6 @@ namespace Manager
                 return;
 
             Play play = _playsList[_currentPlayIndex];
-            
-            // if (play.WinCondition == null)
-            // {
-            //     return;
-            // }
 
             Unity.XR.CoreUtils.XROrigin playerOrigin = FindFirstObjectByType<Unity.XR.CoreUtils.XROrigin>();
             if (playerOrigin != null && play.PlayerLocation != null)
@@ -57,14 +55,14 @@ namespace Manager
                 playerOrigin.transform.position = play.PlayerLocation.Position;
             }
 
-            Ball instantiatedBall = null;
+            Ball instantiatedBallComponent = null;
             if (play.BallPrefab != null)
             {
-                GameObject ballObj = Instantiate(play.BallPrefab);
-                Debug.Log($"Ball instantiated from prefab: {ballObj.name}");
-                instantiatedBall = ballObj.GetComponent<Ball>();
+                _instantiatedBall = Instantiate(play.BallPrefab);
+                Debug.Log($"Ball instantiated from prefab: {_instantiatedBall.name}");
+                instantiatedBallComponent = _instantiatedBall.GetComponent<Ball>();
                 
-                BallController ballController = ballObj.GetComponent<BallController>();
+                BallController ballController = _instantiatedBall.GetComponent<BallController>();
                 
                 if (_playerHand != null && ballController != null)
                 {
@@ -102,6 +100,7 @@ namespace Manager
                     if (npcConfig.NpcPrefab != null && npcConfig.NpcLocation != null)
                     {
                         GameObject npc = Instantiate(npcConfig.NpcPrefab, npcConfig.NpcLocation.Position, Quaternion.identity);
+                        _instantiatedNpcs.Add(npc);
                         NPCController controller = npc.GetComponent<NPCController>();
                         if (controller != null)
                         {
@@ -110,9 +109,9 @@ namespace Manager
                             {
                                 controller.playerTransform = playerOrigin.transform;
                             }
-                            if (instantiatedBall != null)
+                            if (instantiatedBallComponent != null)
                             {
-                                controller.ball = instantiatedBall;
+                                controller.ball = instantiatedBallComponent;
                             }
                         }
                     }
@@ -124,6 +123,8 @@ namespace Manager
         {
             Debug.Log("Play is successfully done! Requirements met inside PlayManager.");
 
+            CleanUpPlay();
+
             Unity.XR.CoreUtils.XROrigin playerOrigin = FindFirstObjectByType<Unity.XR.CoreUtils.XROrigin>();
             if (playerOrigin != null)
             {
@@ -131,6 +132,21 @@ namespace Manager
             }
 
             _playsMenuUIReference.SetActive(true);
+        }
+
+        private void CleanUpPlay()
+        {
+            foreach (var npc in _instantiatedNpcs)
+            {
+                Destroy(npc);
+            }
+            _instantiatedNpcs.Clear();
+
+            if (_instantiatedBall != null)
+            {
+                Destroy(_instantiatedBall);
+                _instantiatedBall = null;
+            }
         }
     }
 }
