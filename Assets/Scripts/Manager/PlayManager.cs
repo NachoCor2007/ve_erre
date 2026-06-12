@@ -11,6 +11,8 @@ namespace Manager
         [SerializeField] private int _currentPlayIndex;
         [SerializeField] private HandController _playerHand;
         [SerializeField] private GameObject _playsMenuUIReference;
+        [SerializeField] private GameObject _restartUIReference;
+        [SerializeField] private GameObject _completedPlayUIReference;
         [SerializeField] private Vector3 _defaultPlayerLocation = Vector3.zero;
 
         private List<GameObject> _instantiatedNpcs = new List<GameObject>();
@@ -43,6 +45,8 @@ namespace Manager
         public void SetUpPlay()
         {
             _playsMenuUIReference.SetActive(false);
+            _restartUIReference.SetActive(false);
+            _completedPlayUIReference.SetActive(false);
 
             if (_playsList == null || _playsList.Count == 0 || _currentPlayIndex < 0 || _currentPlayIndex >= _playsList.Count)
                 return;
@@ -119,6 +123,12 @@ namespace Manager
             }
         }
 
+        public void RestartPlay()
+        {
+            CleanUpPlay();
+            SetUpPlay();
+        }
+
         public void EndPlay()
         {
             Debug.Log("Play is successfully done! Requirements met inside PlayManager.");
@@ -132,6 +142,8 @@ namespace Manager
             }
 
             _playsMenuUIReference.SetActive(true);
+            _restartUIReference.SetActive(false);
+            _completedPlayUIReference.SetActive(false);
         }
 
         private void CleanUpPlay()
