@@ -33,6 +33,12 @@ namespace Manager
             _currentPlayIndex = playIndex;
         }
 
+        public void QuitGame()
+        {
+            Debug.Log("Quitting game...");
+            Application.Quit();
+        }
+
         public Play GetCurrentPlay()
         {
             if (_playsList != null && _currentPlayIndex >= 0 && _currentPlayIndex < _playsList.Count)
