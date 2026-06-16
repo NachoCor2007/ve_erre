@@ -47,6 +47,7 @@ namespace BasketballVR
                     WinCondition currentWinCondition = GetWinCondition();
                     if (currentWinCondition != null && currentWinCondition.CheckIfDone())
                     {
+                        other.gameObject.SetActive(false);
                         EndPlay();
                     }
                 }
