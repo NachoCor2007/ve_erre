@@ -13,6 +13,7 @@ namespace Manager
         [SerializeField] private GameObject _playsMenuUIReference;
         [SerializeField] private GameObject _restartUIReference;
         [SerializeField] private GameObject _completedPlayUIReference;
+        [SerializeField] private GameObject _playerMovementReference;
         [SerializeField] private Vector3 _defaultPlayerLocation = Vector3.zero;
 
         private List<GameObject> _instantiatedNpcs = new List<GameObject>();
@@ -53,6 +54,7 @@ namespace Manager
             _playsMenuUIReference.SetActive(false);
             _restartUIReference.SetActive(false);
             _completedPlayUIReference.SetActive(false);
+            _playerMovementReference.SetActive(true);
 
             if (_playsList == null || _playsList.Count == 0 || _currentPlayIndex < 0 || _currentPlayIndex >= _playsList.Count)
                 return;
@@ -150,6 +152,7 @@ namespace Manager
             _playsMenuUIReference.SetActive(true);
             _restartUIReference.SetActive(false);
             _completedPlayUIReference.SetActive(false);
+            _playerMovementReference.SetActive(false);
         }
 
         private void CleanUpPlay()

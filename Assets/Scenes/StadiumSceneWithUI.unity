@@ -46049,6 +46049,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 58445280694286476, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1717954561962503725, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -61919,6 +61923,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 1220535690}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1222648521 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 58445280694286476, guid: f6336ac4ac8b4d34bc5072418cdc62a0, type: 3}
+  m_PrefabInstance: {fileID: 925928981}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1223200358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -64576,6 +64585,7 @@ MonoBehaviour:
   _playsMenuUIReference: {fileID: 1578327708}
   _restartUIReference: {fileID: 125608589}
   _completedPlayUIReference: {fileID: 1453398681}
+  _playerMovementReference: {fileID: 1222648521}
   _defaultPlayerLocation: {x: 0, y: 0, z: -1.832}
 --- !u!114 &1273913781
 MonoBehaviour:
