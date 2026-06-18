@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -22,13 +22,12 @@ namespace BasketballVR.AI
             }
 
             // The actual catch logic is now handled by NPCCatchTrigger.
-            // We just need to check if the ball is now being held by the NPC.
             var ballController = npc.ball.GetComponent<BallController>();
             if (ballController != null && ballController.isHeld && ballController.holdPoint == npc.handTransform)
             {
                 _hasReceivedBall = true;
+                IsActionSuccessful = true;
             }
-            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

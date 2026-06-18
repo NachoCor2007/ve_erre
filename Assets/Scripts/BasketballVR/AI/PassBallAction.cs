@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -50,8 +50,8 @@ namespace BasketballVR.AI
                 }
 
                 _ballPassed = true;
+                IsActionSuccessful = true;
             }
-            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)

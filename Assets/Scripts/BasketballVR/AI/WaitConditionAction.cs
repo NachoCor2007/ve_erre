@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -31,7 +31,10 @@ namespace BasketballVR.AI
         {
             // The wait logic is handled within the WaitCondition. 
             // The Execute method simply continues tracking until IsFinished returns true.
-            IsActionSuccessful = true;
+            if (IsFinished(npc))
+            {
+                IsActionSuccessful = true;
+            }
         }
 
         public override bool IsFinished(NPCController npc)

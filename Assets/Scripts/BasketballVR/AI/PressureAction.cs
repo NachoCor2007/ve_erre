@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -26,7 +26,10 @@ namespace BasketballVR.AI
             Vector3 targetPosition = npc.playerTransform.position + playerToHoopDir * _distanceFromPlayer;
             
             npc.NavMeshAgent.SetDestination(targetPosition);
-            IsActionSuccessful = true;
+            if (IsFinished(npc))
+            {
+                IsActionSuccessful = true;
+            }
         }
 
         public override bool IsFinished(NPCController npc)

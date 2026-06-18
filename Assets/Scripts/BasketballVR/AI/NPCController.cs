@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,6 +35,17 @@ namespace BasketballVR.AI
 
         private void InitializeActions()
         {
+            if (_actionSequence != null)
+            {
+                foreach (var action in _actionSequence)
+                {
+                    if (action != null)
+                    {
+                        action.IsActionSuccessful = false;
+                    }
+                }
+            }
+
             if (_actionSequence != null && _actionSequence.Count > 0)
             {
                 _currentActionIndex = 0;

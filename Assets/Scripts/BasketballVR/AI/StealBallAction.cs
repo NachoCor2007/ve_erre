@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -33,8 +33,8 @@ namespace BasketballVR.AI
                 npc.ball.Steal();
                 _ballStolen = true;
                 npc.NavMeshAgent.speed = _originalSpeed; // Reset speed
+                IsActionSuccessful = true;
             }
-            IsActionSuccessful = true;
         }
 
         public override bool IsFinished(NPCController npc)
