@@ -17,3 +17,6 @@ MonoBehaviour:
   _playerLocation: {fileID: 11400000, guid: 514698a6589a05e49890dbc1ff4cd875, type: 2}
   _winCondition: {fileID: 11400000, guid: bfe7b8a5c2232ae47bd2217ac065311f, type: 2}
   _ballPrefab: {fileID: 7366536563622355276, guid: fdc493894536100409f6c8b7e2d6ffc8, type: 3}
+  _playName: La 13-14
+  _playDescription: "Esperar que el compa\xF1ero se ponga en posici\xF3n. Pasar la
+    pelota. Esperar al movimiento del compa\xF1ero. Recibir pelota. Tirar al aro."
