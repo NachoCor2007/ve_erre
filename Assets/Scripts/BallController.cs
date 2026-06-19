@@ -21,6 +21,9 @@ public class BallController : MonoBehaviour
     private float dribbleReturnTime = 0.45f; // Time in seconds for the ball to rise back to the hand
     [SerializeField]
     private float catchSnapDistance = 0.35f; // Distance threshold to snap the ball back to the hand
+    [SerializeField]
+    [Tooltip("How fast the ball horizontally matches the player's position during dribbles.")]
+    private float horizontalCatchupSpeed = 6.0f;
 
     private bool _isAssistedDribbling = false;
     private bool _hasBounced = false;
@@ -65,6 +68,23 @@ public class BallController : MonoBehaviour
             // Safety timeout if it never bounced
             _isAssistedDribbling = false;
             Debug.Log("[BallController] Assisted dribble timed out before bounce.");
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isAssistedDribbling && _targetHand != null)
+        {
+            Vector3 targetHandPos = _targetHand.controllerTransform.position;
+            Vector3 ballPos = transform.position;
+
+            Vector3 horizontalDirection = new Vector3(targetHandPos.x - ballPos.x, 0f, targetHandPos.z - ballPos.z);
+            Vector3 handVelocity = _targetHand.velocity;
+
+            Vector3 desiredHorizontalVelocity = new Vector3(handVelocity.x, 0f, handVelocity.z) 
+                                               + horizontalDirection * horizontalCatchupSpeed;
+
+            rb.linearVelocity = new Vector3(desiredHorizontalVelocity.x, rb.linearVelocity.y, desiredHorizontalVelocity.z);
         }
     }
 
