@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
@@ -34,10 +35,38 @@ namespace Manager
             _currentPlayIndex = playIndex;
         }
 
+        private void Start()
+        {
+            // Ensure UI is in the correct initial state immediately
+            if (_playsMenuUIReference != null) _playsMenuUIReference.SetActive(true);
+            if (_restartUIReference != null) _restartUIReference.SetActive(false);
+            if (_completedPlayUIReference != null) _completedPlayUIReference.SetActive(false);
+            if (_playerMovementReference != null) _playerMovementReference.SetActive(false);
+
+            // Teleport player after tracking initializes
+            StartCoroutine(InitializePlayerPositionDelayed());
+        }
+
+        private IEnumerator InitializePlayerPositionDelayed()
+        {
+            // Wait a short delay to let the XR tracking system fully initialize its origin on standalone headsets
+            yield return new WaitForSeconds(0.5f);
+
+            Unity.XR.CoreUtils.XROrigin playerOrigin = FindFirstObjectByType<Unity.XR.CoreUtils.XROrigin>();
+            if (playerOrigin != null)
+            {
+                playerOrigin.transform.position = _defaultPlayerLocation;
+                playerOrigin.transform.rotation = Quaternion.identity;
+            }
+        }
+
         public void QuitGame()
         {
             Debug.Log("Quitting game...");
             Application.Quit();
+            #if UNITY_ANDROID && !UNITY_EDITOR
+            System.Diagnostics.Process.GetCurrentProcess().Kill();
+            #endif
         }
 
         public Play GetCurrentPlay()
@@ -174,6 +203,7 @@ namespace Manager
             if (playerOrigin != null)
             {
                 playerOrigin.transform.position = _defaultPlayerLocation;
+                playerOrigin.transform.rotation = Quaternion.identity;
             }
 
             _playsMenuUIReference.SetActive(true);
