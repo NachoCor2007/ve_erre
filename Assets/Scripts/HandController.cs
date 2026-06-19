@@ -30,7 +30,7 @@ public class HandController : MonoBehaviour
 
         if (controllerTransform != null)
         {
-            lastLocalPosition = xrOrigin != null ? xrOrigin.transform.InverseTransformPoint(controllerTransform.position) : controllerTransform.localPosition;
+            lastLocalPosition = controllerTransform.localPosition;
         }
 
         if (otherHand == null)
@@ -53,17 +53,10 @@ public class HandController : MonoBehaviour
         velocity = Vector3.Lerp(velocity, newVelocity, 0.5f);
         lastPosition = controllerTransform.position;
 
-        // Calculate local velocity (relative to XR Origin) to avoid locomotion interference
-        Vector3 localPos = controllerTransform.position;
-        if (xrOrigin != null)
-        {
-            localPos = xrOrigin.transform.InverseTransformPoint(controllerTransform.position);
-        }
-        else
-        {
-            localPos = controllerTransform.localPosition;
-        }
-
+        // Calculate local velocity using raw localPosition.
+        // Tracked localPosition is relative to the tracking origin (Camera Offset parent)
+        // and is 100% unaffected by virtual locomotion, preventing drift/jitter bugs.
+        Vector3 localPos = controllerTransform != null ? controllerTransform.localPosition : transform.localPosition;
         Vector3 newLocalVelocity = (localPos - lastLocalPosition) / Time.deltaTime;
         localVelocity = Vector3.Lerp(localVelocity, newLocalVelocity, 0.5f);
         lastLocalPosition = localPos;
@@ -77,13 +70,8 @@ public class HandController : MonoBehaviour
             bool isCrossover = false;
             if (otherHand != null)
             {
-                Vector3 toOtherHandLocal = (otherHand.controllerTransform.position - controllerTransform.position).normalized;
-                if (xrOrigin != null)
-                {
-                    Vector3 otherHandLocalPos = xrOrigin.transform.InverseTransformPoint(otherHand.controllerTransform.position);
-                    toOtherHandLocal = (otherHandLocalPos - localPos).normalized;
-                }
-
+                // Calculate local vector from this hand to the other hand (both share parent space)
+                Vector3 toOtherHandLocal = (otherHand.controllerTransform.localPosition - controllerTransform.localPosition).normalized;
                 float alignment = Vector3.Dot(localVelocity.normalized, toOtherHandLocal);
                 // If local velocity points towards the other hand
                 isCrossover = alignment > 0.2f;
@@ -145,7 +133,7 @@ public class HandController : MonoBehaviour
         if (controllerTransform != null)
         {
             lastPosition = controllerTransform.position;
-            lastLocalPosition = xrOrigin != null ? xrOrigin.transform.InverseTransformPoint(controllerTransform.position) : controllerTransform.localPosition;
+            lastLocalPosition = controllerTransform.localPosition;
         }
         currentBall = null;
         lastReleaseTime = Time.time;
