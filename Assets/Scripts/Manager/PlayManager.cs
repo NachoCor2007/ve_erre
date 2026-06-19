@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ScriptableObjects;
 using UnityEngine;
 using BasketballVR.AI;
@@ -65,6 +65,33 @@ namespace Manager
             if (playerOrigin != null && play.PlayerLocation != null)
             {
                 playerOrigin.transform.position = play.PlayerLocation.Position;
+            }
+
+            // Reset hand/shooting controllers to clear velocity spikes from teleportation
+            if (_playerHand != null)
+            {
+                _playerHand.ResetState();
+                var shootingController = _playerHand.GetComponentInChildren<ShootingController>();
+                if (shootingController != null)
+                {
+                    shootingController.ResetState();
+                }
+            }
+            else
+            {
+                HandController[] hands = FindObjectsByType<HandController>(FindObjectsSortMode.None);
+                foreach (var hand in hands)
+                {
+                    if (hand != null)
+                    {
+                        hand.ResetState();
+                        var shootingController = hand.GetComponentInChildren<ShootingController>();
+                        if (shootingController != null)
+                        {
+                            shootingController.ResetState();
+                        }
+                    }
+                }
             }
 
             Ball instantiatedBallComponent = null;
@@ -167,6 +194,33 @@ namespace Manager
             {
                 Destroy(_instantiatedBall);
                 _instantiatedBall = null;
+            }
+
+            // Clean up player controllers during play reset
+            if (_playerHand != null)
+            {
+                _playerHand.ResetState();
+                var shootingController = _playerHand.GetComponentInChildren<ShootingController>();
+                if (shootingController != null)
+                {
+                    shootingController.ResetState();
+                }
+            }
+            else
+            {
+                HandController[] hands = FindObjectsByType<HandController>(FindObjectsSortMode.None);
+                foreach (var hand in hands)
+                {
+                    if (hand != null)
+                    {
+                        hand.ResetState();
+                        var shootingController = hand.GetComponentInChildren<ShootingController>();
+                        if (shootingController != null)
+                        {
+                            shootingController.ResetState();
+                        }
+                    }
+                }
             }
         }
     }

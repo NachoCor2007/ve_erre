@@ -75,4 +75,15 @@ public class HandController : MonoBehaviour
         currentBall = null;
         lastReleaseTime = Time.time;
     }
+
+    public void ResetState()
+    {
+        velocity = Vector3.zero;
+        if (controllerTransform != null)
+        {
+            lastPosition = controllerTransform.position;
+        }
+        currentBall = null;
+        lastReleaseTime = Time.time;
+    }
 }

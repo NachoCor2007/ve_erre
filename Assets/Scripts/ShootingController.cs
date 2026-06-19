@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class ShootingController : MonoBehaviour
 {
@@ -23,12 +24,15 @@ public class ShootingController : MonoBehaviour
     private Vector3 throwVelocityBoost = new Vector3(0f, 1.2f, 0f);
 
     [SerializeField]
-    [Tooltip("Minimum physical velocity magnitude required to use the physics-based throw. Below this, fallback aim throw is used.")]
-    private float minVelocityThreshold = 0.5f;
+    [Tooltip("Minimum physical velocity magnitude required to execute a throw. Below this, the shot is cancelled and returned to the hand.")]
+    private float minVelocityThreshold = 1.0f;
 
+    [Header("Velocity Tracking")]
     [SerializeField]
-    [Tooltip("The speed of the throw when using the fallback (aim-based) throw.")]
-    private float fallbackShootSpeed = 6.0f;
+    [Tooltip("Number of frames to buffer for finding the peak velocity of the throw.")]
+    private int velocityBufferFrames = 20;
+
+    private List<Vector3> _velocityHistory = new List<Vector3>();
 
     void Update()
     {
@@ -39,7 +43,18 @@ public class ShootingController : MonoBehaviour
         if (pressed && !_wasPressedLastFrame && _currentBall != null)
         {
             _isShooting = true;
+            _velocityHistory.Clear();
             _currentBall.Grab(shootPoint);
+        }
+
+        // Buffer the velocity while the trigger is held and preparing to shoot
+        if (_isShooting && handController != null)
+        {
+            _velocityHistory.Add(handController.velocity);
+            if (_velocityHistory.Count > velocityBufferFrames)
+            {
+                _velocityHistory.RemoveAt(0);
+            }
         }
 
         if (!pressed && _wasPressedLastFrame && _isShooting && _currentBall != null)
@@ -54,30 +69,57 @@ public class ShootingController : MonoBehaviour
 
     void Shoot()
     {
-        Debug.Log("DISPARANDO: " + _currentBall);
+        // Get the peak velocity from our buffered history during the throw swing
+        Vector3 throwVelocity = GetPeakVelocity();
 
-        // Get the velocity of the hand controller
-        Vector3 handVelocity = handController != null ? handController.velocity : Vector3.zero;
-
-        handController.ClearBall();
-        
-        Vector3 shootVelocity;
-        if (handVelocity.magnitude > minVelocityThreshold)
+        if (throwVelocity.magnitude > minVelocityThreshold)
         {
-            shootVelocity = handVelocity * throwForceMultiplier;
-            Debug.Log($"[ShootingController] Physical throw. Hand Velocity: {handVelocity} (Mag: {handVelocity.magnitude:F2}).");
+            Debug.Log("DISPARANDO: " + _currentBall);
+            handController.ClearBall();
+            
+            Vector3 shootVelocity = throwVelocity * throwForceMultiplier + throwVelocityBoost;
+            _currentBall.Release(shootVelocity, handController);
+            Debug.Log($"[ShootingController] Physical throw. Peak Velocity: {throwVelocity} (Mag: {throwVelocity.magnitude:F2} m/s).");
         }
         else
         {
-            // Fallback: use controller orientation if motion is too slow
-            Vector3 aimDirection = -shootPoint.right;
-            shootVelocity = aimDirection * fallbackShootSpeed;
-            Debug.Log($"[ShootingController] Low velocity fallback throw. Aim Direction: {aimDirection}.");
+            // Cancel the shot and return the ball to the hand controller's normal grip
+            if (handController != null && _currentBall != null)
+            {
+                handController.GrabBall(_currentBall, true);
+                Debug.Log($"[ShootingController] Shot cancelled. Low peak velocity: {throwVelocity.magnitude:F2} m/s (Threshold: {minVelocityThreshold} m/s). Ball returned to hand.");
+            }
+        }
+    }
+
+    private Vector3 GetPeakVelocity()
+    {
+        if (_velocityHistory == null || _velocityHistory.Count == 0)
+        {
+            return handController != null ? handController.velocity : Vector3.zero;
         }
 
-        // Apply helper upward/forward boost
-        shootVelocity += throwVelocityBoost;
+        Vector3 peakVelocity = Vector3.zero;
+        float maxSpeed = 0f;
 
-        _currentBall.Release(shootVelocity, handController);
+        foreach (Vector3 v in _velocityHistory)
+        {
+            float speed = v.magnitude;
+            if (speed > maxSpeed)
+            {
+                maxSpeed = speed;
+                peakVelocity = v;
+            }
+        }
+
+        return peakVelocity;
+    }
+
+    public void ResetState()
+    {
+        _isShooting = false;
+        _wasPressedLastFrame = false;
+        _velocityHistory.Clear();
+        _currentBall = null;
     }
 }
