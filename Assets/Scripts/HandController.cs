@@ -14,6 +14,27 @@ public class HandController : MonoBehaviour
     private float lastReleaseTime;
     private float grabCooldown = 0.2f;
 
+    [Header("Dribble Assist")]
+    public HandController otherHand;
+
+    private void Start()
+    {
+        lastPosition = controllerTransform != null ? controllerTransform.position : transform.position;
+
+        if (otherHand == null)
+        {
+            HandController[] hands = FindObjectsByType<HandController>(FindObjectsSortMode.None);
+            foreach (var hand in hands)
+            {
+                if (hand != this)
+                {
+                    otherHand = hand;
+                    break;
+                }
+            }
+        }
+    }
+
     void Update()
     {
         Vector3 newVelocity = (controllerTransform.position - lastPosition) / Time.deltaTime;
@@ -29,7 +50,20 @@ public class HandController : MonoBehaviour
         if (currentBall != null && velocity.y < -1.0f)
         {
             lastReleaseTime = Time.time;
-            currentBall.Release(velocity, this);
+
+            // Check if doing a crossover (throwing towards the other hand)
+            bool isCrossover = false;
+            if (otherHand != null)
+            {
+                Vector3 toOtherHand = (otherHand.controllerTransform.position - controllerTransform.position).normalized;
+                float alignment = Vector3.Dot(velocity.normalized, toOtherHand);
+                // If velocity points towards the other hand
+                isCrossover = alignment > 0.2f;
+            }
+
+            HandController target = isCrossover ? otherHand : this;
+
+            currentBall.StartAssistedDribble(target, velocity);
             currentBall = null;
         }
     }
