@@ -46,8 +46,8 @@ public class HandController : MonoBehaviour
         //     Debug.Log("Velocidad Y: " + velocity.y);
         // }
 
-        // Si está agarrada y me muevo rápido hacia abajo → soltar para dribble
-        if (currentBall != null && velocity.y < -1.0f)
+        // Si está agarrada en esta mano y me muevo rápido hacia abajo → soltar para dribble
+        if (currentBall != null && currentBall.holdPoint == controllerTransform && velocity.y < -1.0f)
         {
             lastReleaseTime = Time.time;
 
