@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.XR.CoreUtils;
 
 public class HandController : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class HandController : MonoBehaviour
     private Vector3 lastPosition;
     public Vector3 velocity;
 
+    private Vector3 lastLocalPosition;
+    public Vector3 localVelocity;
+
     private BallController currentBall;
     private float lastReleaseTime;
     private float grabCooldown = 0.2f;
@@ -17,9 +21,17 @@ public class HandController : MonoBehaviour
     [Header("Dribble Assist")]
     public HandController otherHand;
 
+    private XROrigin xrOrigin;
+
     private void Start()
     {
+        xrOrigin = FindFirstObjectByType<XROrigin>();
         lastPosition = controllerTransform != null ? controllerTransform.position : transform.position;
+
+        if (controllerTransform != null)
+        {
+            lastLocalPosition = xrOrigin != null ? xrOrigin.transform.InverseTransformPoint(controllerTransform.position) : controllerTransform.localPosition;
+        }
 
         if (otherHand == null)
         {
@@ -41,13 +53,23 @@ public class HandController : MonoBehaviour
         velocity = Vector3.Lerp(velocity, newVelocity, 0.5f);
         lastPosition = controllerTransform.position;
 
-        // if (currentBall != null)
-        // {
-        //     Debug.Log("Velocidad Y: " + velocity.y);
-        // }
+        // Calculate local velocity (relative to XR Origin) to avoid locomotion interference
+        Vector3 localPos = controllerTransform.position;
+        if (xrOrigin != null)
+        {
+            localPos = xrOrigin.transform.InverseTransformPoint(controllerTransform.position);
+        }
+        else
+        {
+            localPos = controllerTransform.localPosition;
+        }
 
-        // Si está agarrada en esta mano y me muevo rápido hacia abajo → soltar para dribble
-        if (currentBall != null && currentBall.holdPoint == controllerTransform && velocity.y < -1.0f)
+        Vector3 newLocalVelocity = (localPos - lastLocalPosition) / Time.deltaTime;
+        localVelocity = Vector3.Lerp(localVelocity, newLocalVelocity, 0.5f);
+        lastLocalPosition = localPos;
+
+        // Si está agarrada en esta mano y me muevo rápido hacia abajo → soltar para dribble (check uses localVelocity)
+        if (currentBall != null && currentBall.holdPoint == controllerTransform && localVelocity.y < -1.0f)
         {
             lastReleaseTime = Time.time;
 
@@ -55,15 +77,21 @@ public class HandController : MonoBehaviour
             bool isCrossover = false;
             if (otherHand != null)
             {
-                Vector3 toOtherHand = (otherHand.controllerTransform.position - controllerTransform.position).normalized;
-                float alignment = Vector3.Dot(velocity.normalized, toOtherHand);
-                // If velocity points towards the other hand
+                Vector3 toOtherHandLocal = (otherHand.controllerTransform.position - controllerTransform.position).normalized;
+                if (xrOrigin != null)
+                {
+                    Vector3 otherHandLocalPos = xrOrigin.transform.InverseTransformPoint(otherHand.controllerTransform.position);
+                    toOtherHandLocal = (otherHandLocalPos - localPos).normalized;
+                }
+
+                float alignment = Vector3.Dot(localVelocity.normalized, toOtherHandLocal);
+                // If local velocity points towards the other hand
                 isCrossover = alignment > 0.2f;
             }
 
             HandController target = isCrossover ? otherHand : this;
 
-            currentBall.StartAssistedDribble(target, velocity);
+            currentBall.StartAssistedDribble(target, velocity); // Release with world velocity!
             currentBall = null;
         }
     }
@@ -79,7 +107,7 @@ public class HandController : MonoBehaviour
             {
                 if (ball.lastHandThatThrew == this) return;
 
-                if (Time.time - lastReleaseTime > grabCooldown && velocity.y > -0.5f)
+                if (Time.time - lastReleaseTime > grabCooldown && localVelocity.y > -0.5f)
                 {
                     ball.holdLocalOffset = grabOffset;
                     ball.Grab(controllerTransform);
@@ -113,9 +141,11 @@ public class HandController : MonoBehaviour
     public void ResetState()
     {
         velocity = Vector3.zero;
+        localVelocity = Vector3.zero;
         if (controllerTransform != null)
         {
             lastPosition = controllerTransform.position;
+            lastLocalPosition = xrOrigin != null ? xrOrigin.transform.InverseTransformPoint(controllerTransform.position) : controllerTransform.localPosition;
         }
         currentBall = null;
         lastReleaseTime = Time.time;
