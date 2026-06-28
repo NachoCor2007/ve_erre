@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 12e16b456ac33d344a735e0e84df676f, type: 3}
-  m_Name: GoToPointB
+  m_Name: MoveToPointA2
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.AI.MoveToPointAction
-  _targetPosition: {x: 12.34, y: 2.98, z: 14.15}
+  _targetPosition: {x: -3.17, y: 0.0000002980232, z: 5.32}
   _stoppingDistance: 0.1

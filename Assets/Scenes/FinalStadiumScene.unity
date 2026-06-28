@@ -65619,7 +65619,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Manager.PlayManager
   _playsList:
   - {fileID: 11400000, guid: 437e6b95ca1de4646b2fd720fd23d2cd, type: 2}
-  _currentPlayIndex: 0
+  - {fileID: 11400000, guid: 4669abfc6f72cb44fb2da16fd6e685d8, type: 2}
+  _currentPlayIndex: 1
   _playerHand: {fileID: 0}
   _playsMenuUIReference: {fileID: 1578327708}
   _restartUIReference: {fileID: 125608589}

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f1383bdc5ba1394483a631b58f4a24e, type: 3}
-  m_Name: MainPlay
+  m_Name: SecondPlay
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Play
   _npcConfigs:
-  - {fileID: 11400000, guid: 75a08ee33f4d08145a43d3ae4c065e5d, type: 2}
-  _playerLocation: {fileID: 11400000, guid: 514698a6589a05e49890dbc1ff4cd875, type: 2}
+  - {fileID: 11400000, guid: fc0283f0e7188144eaac510f7d2b204e, type: 2}
+  _playerLocation: {fileID: 11400000, guid: bfcd21b3e91b80c4cbbc4955a83678b5, type: 2}
   _winCondition: {fileID: 11400000, guid: bfe7b8a5c2232ae47bd2217ac065311f, type: 2}
   _ballPrefab: {fileID: 7366536563622355276, guid: fdc493894536100409f6c8b7e2d6ffc8, type: 3}
-  _playName: La 13-14
+  _playName: La 6-7
   _playDescription: "Esperar que el compa\xF1ero se ponga en posici\xF3n. Pasar la
     pelota. Esperar al movimiento del compa\xF1ero. Recibir pelota. Tirar al aro."

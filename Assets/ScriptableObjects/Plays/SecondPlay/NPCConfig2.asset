@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd30aaae83370e45838b26497408517, type: 3}
+  m_Name: NPCConfig2
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.NPCConfig
+  _npcPrefab: {fileID: 1228796215698836359, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
+  _npcLocation: {fileID: 11400000, guid: f7c26b336d0194b48b6136446ceeee90, type: 2}
+  _actionSequence:
+  - {fileID: 11400000, guid: 2c1409e150842ff4c83555cda274e6e7, type: 2}
+  - {fileID: 11400000, guid: 15fa633f282b6074c839718b25a91619, type: 2}
+  - {fileID: 11400000, guid: a49764c53b86db9429dc5c9d567e95ba, type: 2}
+  - {fileID: 11400000, guid: 00170fb33ddd578468888eb65c9a4da4, type: 2}
+  - {fileID: 11400000, guid: 401ab5ff1ad2c474aba62a04e91d03d3, type: 2}
