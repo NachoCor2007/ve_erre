@@ -12,6 +12,12 @@ namespace ScriptableObjects
     public bool CheckIfDone()
     {
       NPCController[] npcsInScene = FindObjectsByType<NPCController>(FindObjectsSortMode.None);
+
+      if (npcsInScene == null || npcsInScene.Length == 0)
+      {
+        Debug.LogWarning("No NPCs found in the scene. Win condition cannot be evaluated.");
+        return false;
+      }
       
       foreach (var npc in npcsInScene)
       {
