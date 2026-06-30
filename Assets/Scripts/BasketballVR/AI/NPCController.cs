@@ -116,6 +116,18 @@ namespace BasketballVR.AI
 
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
 
+        public NPCAction CurrentAction
+        {
+            get
+            {
+                if (_actionSequence != null && _currentActionIndex >= 0 && _currentActionIndex < _actionSequence.Count)
+                {
+                    return _actionSequence[_currentActionIndex];
+                }
+                return null;
+            }
+        }
+
         public bool AreAllActionsSuccessful()
         {
             if (_actionSequence == null || _actionSequence.Count == 0) return true;

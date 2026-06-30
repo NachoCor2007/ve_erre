@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -31,6 +31,12 @@ namespace BasketballVR.AI
 
         private void OnTriggerEnter(Collider other)
         {
+            // Only allow catching if the NPC's current action is ReceiveBallAction
+            if (_npcController == null || !(_npcController.CurrentAction is ReceiveBallAction))
+            {
+                return;
+            }
+
             // Evitar loop de agarrar la pelota exactamente cuando fue lanzada desde la misma mano
             if (Time.time - _lastCatchTime < 0.5f) return;
 
