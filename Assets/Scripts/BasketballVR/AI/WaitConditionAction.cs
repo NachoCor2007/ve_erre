@@ -14,7 +14,32 @@ namespace BasketballVR.AI
 
         // Placeholder for game state checks.
         // In a real project, you would get this from a GameManager or similar singleton.
-        private bool IsPlayerHoldingBall() => false; 
+        private bool IsPlayerHoldingBall(NPCController npc)
+        {
+            Ball ball = (npc != null) ? npc.ball : null;
+            if (ball == null)
+            {
+                ball = FindFirstObjectByType<Ball>();
+            }
+            if (ball == null) return false;
+
+            var ballController = ball.GetComponent<BallController>();
+            if (ballController == null || !ballController.isHeld) return false;
+
+            var hands = FindObjectsByType<HandController>(FindObjectsSortMode.None);
+            foreach (var hand in hands)
+            {
+                if (hand != null)
+                {
+                    if (hand.GetCurrentBall() == ballController || ballController.holdPoint == hand.controllerTransform)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         private bool HasPlayerStartedShot() => false;
 
         public override void Initialize(NPCController npc)
@@ -43,7 +68,7 @@ namespace BasketballVR.AI
             switch (_trigger)
             {
                 case WaitTrigger.PlayerHasBall:
-                    result = IsPlayerHoldingBall();
+                    result = IsPlayerHoldingBall(npc);
                     break;
                 case WaitTrigger.PlayerStartedShot:
                     result = HasPlayerStartedShot();
