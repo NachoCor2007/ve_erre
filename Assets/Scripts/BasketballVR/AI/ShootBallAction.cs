@@ -11,6 +11,12 @@ namespace BasketballVR.AI
 
         private bool _ballShot;
 
+        public override void ResetState()
+        {
+            base.ResetState();
+            _ballShot = false;
+        }
+
         public override void Initialize(NPCController npc)
         {
             base.Initialize(npc);

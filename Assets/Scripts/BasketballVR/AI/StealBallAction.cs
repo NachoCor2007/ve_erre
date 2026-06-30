@@ -11,6 +11,12 @@ namespace BasketballVR.AI
         private float _originalSpeed;
         private bool _ballStolen;
 
+        public override void ResetState()
+        {
+            base.ResetState();
+            _ballStolen = false;
+        }
+
         public override void Initialize(NPCController npc)
         {
             base.Initialize(npc);

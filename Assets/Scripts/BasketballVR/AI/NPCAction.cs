@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace BasketballVR.AI
 {
@@ -10,6 +10,12 @@ namespace BasketballVR.AI
         { 
             IsActionSuccessful = false;
         }
+
+        public virtual void ResetState()
+        {
+            IsActionSuccessful = false;
+        }
+
         public abstract void Execute(NPCController npc);
         public abstract bool IsFinished(NPCController npc);
     }

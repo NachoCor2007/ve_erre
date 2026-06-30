@@ -7,6 +7,12 @@ namespace BasketballVR.AI
     {
         private bool _hasReceivedBall = false;
 
+        public override void ResetState()
+        {
+            base.ResetState();
+            _hasReceivedBall = false;
+        }
+
         public override void Initialize(NPCController npc)
         {
             base.Initialize(npc);

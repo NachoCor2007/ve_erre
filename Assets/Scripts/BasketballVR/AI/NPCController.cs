@@ -11,6 +11,7 @@ namespace BasketballVR.AI
         
         private NavMeshAgent _navMeshAgent;
         private int _currentActionIndex = 0;
+        private bool _actionsCloned = false;
 
         public Transform playerTransform;
         public Ball ball;
@@ -30,18 +31,37 @@ namespace BasketballVR.AI
         public void SetActionSequence(List<NPCAction> newActionSequence)
         {
             _actionSequence = newActionSequence;
+            _actionsCloned = false;
             InitializeActions();
         }
 
         private void InitializeActions()
         {
+            if (!_actionsCloned && _actionSequence != null)
+            {
+                List<NPCAction> clonedSequence = new List<NPCAction>();
+                foreach (var action in _actionSequence)
+                {
+                    if (action != null)
+                    {
+                        clonedSequence.Add(Instantiate(action));
+                    }
+                    else
+                    {
+                        clonedSequence.Add(null);
+                    }
+                }
+                _actionSequence = clonedSequence;
+                _actionsCloned = true;
+            }
+
             if (_actionSequence != null)
             {
                 foreach (var action in _actionSequence)
                 {
                     if (action != null)
                     {
-                        action.IsActionSuccessful = false;
+                        action.ResetState();
                     }
                 }
             }

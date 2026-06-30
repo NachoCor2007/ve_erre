@@ -14,28 +14,50 @@ namespace BasketballVR.AI
         private Transform _playerTransform;
         private bool _hasFinished = false;
 
+        private Transform ResolvePlayerTransform(NPCController npc)
+        {
+            if (Camera.main != null)
+            {
+                return Camera.main.transform;
+            }
+
+            var xrOrigin = FindFirstObjectByType<XROrigin>();
+            if (xrOrigin != null)
+            {
+                return xrOrigin.Camera != null ? xrOrigin.Camera.transform : xrOrigin.transform;
+            }
+
+            return npc != null ? npc.playerTransform : null;
+        }
+
+        public override void ResetState()
+        {
+            base.ResetState();
+            _hasFinished = false;
+            _spawnedPointer = null;
+            _playerTransform = null;
+        }
+
         public override void Initialize(NPCController npc)
         {
             base.Initialize(npc);
             _hasFinished = false;
             npc.NavMeshAgent.isStopped = true; // Stop moving during wait
 
-            // Resolve player transform by finding the XROrigin component directly
-            var xrOrigin = FindFirstObjectByType<XROrigin>();
-            if (xrOrigin != null)
-            {
-                _playerTransform = xrOrigin.transform;
-            }
-            else
-            {
-                _playerTransform = npc.playerTransform;
-            }
+            _playerTransform = ResolvePlayerTransform(npc);
 
             if (_pointerPrefab != null)
             {
                 // Instantiate the pointer at the target position using the prefab's rotation
                 _spawnedPointer = Instantiate(_pointerPrefab, _targetPosition, _pointerPrefab.transform.rotation);
                 
+                // Ensure the pointer is not solid by setting colliders as triggers
+                Collider[] colliders = _spawnedPointer.GetComponentsInChildren<Collider>();
+                foreach (var col in colliders)
+                {
+                    col.isTrigger = true;
+                }
+
                 // Add the helper component to lock position/rotation and ensure parenting cleanup
                 var locker = _spawnedPointer.AddComponent<FixedWorldTransform>();
                 locker.position = _targetPosition;
@@ -67,16 +89,7 @@ namespace BasketballVR.AI
 
             if (_playerTransform == null)
             {
-                // Try again in case it wasn't found during Initialize
-                var xrOrigin = FindFirstObjectByType<XROrigin>();
-                if (xrOrigin != null)
-                {
-                    _playerTransform = xrOrigin.transform;
-                }
-                else
-                {
-                    _playerTransform = npc.playerTransform;
-                }
+                _playerTransform = ResolvePlayerTransform(npc);
             }
 
             if (_playerTransform == null)

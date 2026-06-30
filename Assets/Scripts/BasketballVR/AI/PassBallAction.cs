@@ -9,6 +9,12 @@ namespace BasketballVR.AI
         [SerializeField] private float _upwardForce = 2f;
         private bool _ballPassed;
 
+        public override void ResetState()
+        {
+            base.ResetState();
+            _ballPassed = false;
+        }
+
         public override void Initialize(NPCController npc)
         {
             base.Initialize(npc);

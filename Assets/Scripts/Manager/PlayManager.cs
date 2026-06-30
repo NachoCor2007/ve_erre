@@ -53,16 +53,21 @@ namespace Manager
             return null;
         }
 
-        public void SetUpPlay()
+        public void SetPlay0(bool isOn) { if (isOn) SetUpPlay(0); }
+        public void SetPlay1(bool isOn) { if (isOn) SetUpPlay(1); }
+
+        public void SetUpPlay(int playIndex = 0)
         {
+
             _playsMenuUIReference.SetActive(false);
             _restartUIReference.SetActive(false);
             _completedPlayUIReference.SetActive(false);
             _playerMovementReference.SetActive(true);
 
-            if (_playsList == null || _playsList.Count == 0 || _currentPlayIndex < 0 || _currentPlayIndex >= _playsList.Count)
+            if (_playsList == null || _playsList.Count == 0 || playIndex < 0 || playIndex >= _playsList.Count)
                 return;
 
+            _currentPlayIndex = playIndex;
             Play play = _playsList[_currentPlayIndex];
 
             Unity.XR.CoreUtils.XROrigin playerOrigin = FindFirstObjectByType<Unity.XR.CoreUtils.XROrigin>();
@@ -165,7 +170,24 @@ namespace Manager
         public void RestartPlay()
         {
             CleanUpPlay();
-            SetUpPlay();
+            SetUpPlay(_currentPlayIndex);
+        }
+
+        public void LeavePlay()
+        {
+            Debug.Log("Leaving play...");
+            CleanUpPlay();
+
+            Unity.XR.CoreUtils.XROrigin playerOrigin = FindFirstObjectByType<Unity.XR.CoreUtils.XROrigin>();
+            if (playerOrigin != null)
+            {
+                playerOrigin.transform.position = _defaultPlayerLocation;
+            }
+
+            _playsMenuUIReference.SetActive(true);
+            _restartUIReference.SetActive(false);
+            _completedPlayUIReference.SetActive(false);
+            _playerMovementReference.SetActive(false);
         }
 
         public void EndPlay()

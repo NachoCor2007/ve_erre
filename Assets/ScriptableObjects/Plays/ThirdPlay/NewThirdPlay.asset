@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f1383bdc5ba1394483a631b58f4a24e, type: 3}
+  m_Name: NewThirdPlay
+  m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.Play
+  _npcConfigs:
+  - {fileID: 11400000, guid: 4394b43b7d319614d9cf960f29226327, type: 2}
+  _playerLocation: {fileID: 11400000, guid: e9a2ad6de60855c4fbacc6fb447532a1, type: 2}
+  _winCondition: {fileID: 11400000, guid: bfe7b8a5c2232ae47bd2217ac065311f, type: 2}
+  _ballPrefab: {fileID: 7366536563622355276, guid: fdc493894536100409f6c8b7e2d6ffc8, type: 3}
+  _playName: La 6-7
+  _playDescription: "Esperar que el compa\xF1ero se ponga en posici\xF3n. Pasar la
+    pelota. Esperar al movimiento del compa\xF1ero. Recibir pelota. Tirar al aro."
