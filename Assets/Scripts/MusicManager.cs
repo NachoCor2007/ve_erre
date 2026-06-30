@@ -17,7 +17,9 @@ public class MusicManager : MonoBehaviour
     public AudioClip gameMusic;
 
     private Coroutine currentFadeCoroutine;
-    private float maxVolume = 1.0f; // Puedes cambiar esto si tus canciones suenan muy fuerte
+
+    [Header("Music Max Volume")]
+    [SerializeField] private float maxVolume = 0.5f; // Puedes cambiar esto si tus canciones suenan muy fuerte
 
     private void Awake()
     {

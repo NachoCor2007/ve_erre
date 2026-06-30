@@ -12,6 +12,11 @@ namespace BasketballVR
         [SerializeField] private GameObject _playCompletedUIReference;
         [SerializeField] private HoopGlowController _glowController;
 
+        [Header("Audio Settings")]
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _shootSound;
+        [SerializeField] private AudioClip _playCompletedSound;
+
         private int _ballGoingDownHash;
         private Rigidbody _trackedBallRb;
         private bool _glowStarted = false;
@@ -38,6 +43,11 @@ namespace BasketballVR
             {
                 Debug.LogWarning("HoopGlowController not found in parent hierarchy or scene. Emissive glow will not be triggered.");
             }
+
+            if (_audioSource == null)
+            {
+                _audioSource = GetComponent<AudioSource>();
+            }
         }
 
         private void Update()
@@ -53,6 +63,7 @@ namespace BasketballVR
                         _glowController.StartGlow();
                     }
                     _glowStarted = true;
+                    PlaySound(_shootSound);
                 }
                 else if (!isDone && _glowStarted)
                 {
@@ -126,6 +137,15 @@ namespace BasketballVR
         {
             _glowController.StopGlow();
             _playCompletedUIReference.SetActive(true);
+            PlaySound(_playCompletedSound);
+        }
+
+        private void PlaySound(AudioClip clip)
+        {
+            if (_audioSource != null && clip != null)
+            {
+                _audioSource.PlayOneShot(clip);
+            }
         }
     }
 }
