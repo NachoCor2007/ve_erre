@@ -5,6 +5,11 @@ namespace BasketballVR.AI
     [CreateAssetMenu(fileName = "ReceiveBallAction", menuName = "BasketballVR/AI/ReceiveBallAction")]
     public class ReceiveBallAction : NPCAction
     {
+        [SerializeField] private AudioClip _triggerSound;
+        [SerializeField] private float _soundVolume = 1.0f;
+        [SerializeField] private float _soundMinDistance = 5.0f;
+        [SerializeField] private float _soundMaxDistance = 100.0f;
+
         private bool _hasReceivedBall = false;
 
         public override void ResetState()
@@ -18,6 +23,11 @@ namespace BasketballVR.AI
             base.Initialize(npc);
             _hasReceivedBall = false;
             npc.NavMeshAgent.isStopped = true; // The NPC waits in place
+
+            if (_triggerSound != null)
+            {
+                PlaySoundAtPoint(_triggerSound, npc.transform.position, _soundMinDistance, _soundMaxDistance, _soundVolume);
+            }
         }
 
         public override void Execute(NPCController npc)
@@ -45,6 +55,21 @@ namespace BasketballVR.AI
                 return true;
             }
             return false;
+        }
+
+        private void PlaySoundAtPoint(AudioClip clip, Vector3 position, float minDistance, float maxDistance, float volume)
+        {
+            if (clip == null) return;
+            GameObject go = new GameObject("TempAudio_" + clip.name);
+            go.transform.position = position;
+            AudioSource source = go.AddComponent<AudioSource>();
+            source.clip = clip;
+            source.spatialBlend = 1f; // 3D sound
+            source.minDistance = minDistance;
+            source.maxDistance = maxDistance;
+            source.volume = volume;
+            source.Play();
+            Destroy(go, clip.length);
         }
     }
 }

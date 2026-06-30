@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70f8a74967b749a9a741dbc456c64944, type: 3}
   m_Name: ReceiveBallFromPlayer2
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.AI.ReceiveBallAction
+  _triggerSound: {fileID: 8300000, guid: efa30062f8af6344cb4f503e5084bae1, type: 3}

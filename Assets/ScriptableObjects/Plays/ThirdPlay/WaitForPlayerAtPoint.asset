@@ -15,3 +15,4 @@ MonoBehaviour:
   _targetPosition: {x: -3.18, y: 0, z: 5.55}
   _pointerPrefab: {fileID: 174126704118784855, guid: fdc1e58dec65722459e2eefa62294737, type: 3}
   _detectionThreshold: 1
+  _triggerSound: {fileID: 8300000, guid: bbb7647874158224ea824356bd40eaeb, type: 3}

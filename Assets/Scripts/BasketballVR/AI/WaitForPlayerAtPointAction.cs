@@ -9,6 +9,10 @@ namespace BasketballVR.AI
         [SerializeField] private Vector3 _targetPosition;
         [SerializeField] private GameObject _pointerPrefab;
         [SerializeField] private float _detectionThreshold = 1.0f;
+        [SerializeField] private AudioClip _triggerSound;
+        [SerializeField] private float _soundVolume = 1.0f;
+        [SerializeField] private float _soundMinDistance = 5.0f;
+        [SerializeField] private float _soundMaxDistance = 100.0f;
 
         private GameObject _spawnedPointer;
         private Transform _playerTransform;
@@ -45,6 +49,11 @@ namespace BasketballVR.AI
             npc.NavMeshAgent.isStopped = true; // Stop moving during wait
 
             _playerTransform = ResolvePlayerTransform(npc);
+
+            if (_triggerSound != null)
+            {
+                PlaySoundAtPoint(_triggerSound, _targetPosition, _soundMinDistance, _soundMaxDistance, _soundVolume);
+            }
 
             if (_pointerPrefab != null)
             {
@@ -134,6 +143,21 @@ namespace BasketballVR.AI
         private void OnDisable()
         {
             CleanupPointer();
+        }
+
+        private void PlaySoundAtPoint(AudioClip clip, Vector3 position, float minDistance, float maxDistance, float volume)
+        {
+            if (clip == null) return;
+            GameObject go = new GameObject("TempAudio_" + clip.name);
+            go.transform.position = position;
+            AudioSource source = go.AddComponent<AudioSource>();
+            source.clip = clip;
+            source.spatialBlend = 1f; // 3D sound
+            source.minDistance = minDistance;
+            source.maxDistance = maxDistance;
+            source.volume = volume;
+            source.Play();
+            Destroy(go, clip.length);
         }
     }
 
