@@ -15,10 +15,10 @@ MonoBehaviour:
   _npcPrefab: {fileID: 1228796215698836359, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
   _npcLocation: {fileID: 11400000, guid: f7c26b336d0194b48b6136446ceeee90, type: 2}
   _actionSequence:
-  - {fileID: 11400000, guid: 2c1409e150842ff4c83555cda274e6e7, type: 2}
+  - {fileID: 11400000, guid: f8c1bee166e278e468751032a786315c, type: 2}
   - {fileID: 11400000, guid: 5f5890d1853de734494a6b627d28cac7, type: 2}
   - {fileID: 11400000, guid: 15fa633f282b6074c839718b25a91619, type: 2}
-  - {fileID: 11400000, guid: a49764c53b86db9429dc5c9d567e95ba, type: 2}
+  - {fileID: 11400000, guid: 40ef6610912a4844fa27592981862332, type: 2}
   - {fileID: 11400000, guid: 00170fb33ddd578468888eb65c9a4da4, type: 2}
   - {fileID: 11400000, guid: 401ab5ff1ad2c474aba62a04e91d03d3, type: 2}
   - {fileID: 11400000, guid: ab7118e4b207a3c4191201d22084c48a, type: 2}

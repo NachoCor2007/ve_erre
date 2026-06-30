@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c9b4253e0b03b4284a5dbb3ac7551a, type: 3}
   m_Name: WaitForPlayerAtPoint2
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.AI.WaitForPlayerAtPointAction
-  _targetPosition: {x: 2.82, y: 0, z: 5.53}
+  _targetPosition: {x: -1.52, y: 0, z: 2.59}
   _pointerPrefab: {fileID: 174126704118784855, guid: fdc1e58dec65722459e2eefa62294737, type: 3}
   _detectionThreshold: 1
