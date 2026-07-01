@@ -54,6 +54,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emissions_Mask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -100,6 +104,8 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
+    - _Alpha_Clip_Threshold: 0.5
+    - _Ambient_Self_Lighting: 0
     - _BUILTIN_AlphaClip: 0
     - _BUILTIN_Blend: 0
     - _BUILTIN_CullMode: 2
@@ -116,6 +122,8 @@ Material:
     - _BumpScale: 1
     - _BumpStrength: 1
     - _CastShadows: 0
+    - _Cel_Ramp_Smoothness: 0
+    - _Cel_Shader_Offset: 0.5
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
@@ -137,6 +145,8 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RimPower: 5
+    - _Rim_Brightness: 1
+    - _Rim_Lighting: -0.01
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -144,7 +154,9 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
+    - _UseNormalMap: 0
     - _WorkflowMode: 1
+    - _XRMotionVectorsPass: 1
     - _ZTest: 4
     - _ZWrite: 1
     - _ZWriteControl: 0
@@ -154,10 +166,14 @@ Material:
     - _BumpTiling: {r: 1, g: 1, b: 0, a: 0}
     - _Color: {r: 0.75294125, g: 0.75294125, b: 0.75294125, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissions_Color: {r: 1, g: 1, b: 1, a: 0}
     - _NormalOffset: {r: 0, g: 0, b: 0, a: 0}
     - _NormalTiling: {r: 1, g: 1, b: 0, a: 0}
     - _RimColor: {r: 1, g: 1, b: 1, a: 0.5803922}
+    - _Shading_Color: {r: 0.49056596, g: 0.49056596, b: 0.49056596, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _Texture_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Texture_Scale: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2844382753039495902
