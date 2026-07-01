@@ -12,6 +12,8 @@ namespace BasketballVR.AI
 
         private float _startTime;
 
+        public override bool ShowInUI => false;
+
         // Placeholder for game state checks.
         // In a real project, you would get this from a GameManager or similar singleton.
         private bool IsPlayerHoldingBall(NPCController npc)

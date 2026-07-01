@@ -11,6 +11,8 @@ namespace BasketballVR.AI
         private float _originalSpeed;
         private bool _ballStolen;
 
+        public override bool ShowInUI => false;
+
         public override void ResetState()
         {
             base.ResetState();

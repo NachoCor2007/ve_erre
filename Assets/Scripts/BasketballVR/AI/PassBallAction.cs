@@ -9,6 +9,11 @@ namespace BasketballVR.AI
         [SerializeField] private float _upwardForce = 2f;
         private bool _ballPassed;
 
+        public override string Description
+        {
+            get => !string.IsNullOrEmpty(_description) ? _description : "Recibir pelota de compañero";
+        }
+
         public override void ResetState()
         {
             base.ResetState();

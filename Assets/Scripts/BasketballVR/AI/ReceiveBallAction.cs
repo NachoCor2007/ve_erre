@@ -12,6 +12,11 @@ namespace BasketballVR.AI
 
         private bool _hasReceivedBall = false;
 
+        public override string Description
+        {
+            get => !string.IsNullOrEmpty(_description) ? _description : "Pasar pelota a compañero";
+        }
+
         public override void ResetState()
         {
             base.ResetState();

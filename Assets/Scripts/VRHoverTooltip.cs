@@ -2,6 +2,7 @@ using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using BasketballVR.UI;
 
 public class VRHoverTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -18,18 +19,42 @@ public class VRHoverTooltip : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             tooltipMenu.SetActive(false);
         }
+
+        // Obtener el título del botón/item desde el Play asociado
+        if (associatedPlay != null)
+        {
+            Text itemText = GetComponent<Text>();
+            if (itemText == null)
+            {
+                itemText = GetComponentInChildren<Text>(true);
+            }
+
+            if (itemText != null)
+            {
+                itemText.text = associatedPlay.PlayName;
+            }
+        }
     }
 
     // Se ejecuta cuando el Raycaster de VR apunta al botón
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (tooltipMenu != null)
+        if (tooltipMenu != null && associatedPlay != null)
         {
-            // Buscamos el componente de texto en los hijos del menú y actualizamos su contenido
-            Text textComponent = GetTooltipTextComponent();
-            if (textComponent != null)
+            // Intentamos obtener el componente de visualización del menú contextual
+            ContextualMenuDisplay menuDisplay = tooltipMenu.GetComponent<ContextualMenuDisplay>();
+            if (menuDisplay != null)
             {
-                textComponent.text = associatedPlay.PlayDescription;
+                menuDisplay.RenderPlay(associatedPlay);
+            }
+            else
+            {
+                // Fallback a comportamiento anterior si no está el componente ContextualMenuDisplay
+                Text textComponent = GetTooltipTextComponent();
+                if (textComponent != null)
+                {
+                    textComponent.text = associatedPlay.PlayName;
+                }
             }
 
             tooltipMenu.SetActive(true);

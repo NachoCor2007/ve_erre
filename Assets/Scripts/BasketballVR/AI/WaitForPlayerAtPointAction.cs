@@ -18,6 +18,11 @@ namespace BasketballVR.AI
         private Transform _playerTransform;
         private bool _hasFinished = false;
 
+        public override string Description
+        {
+            get => !string.IsNullOrEmpty(_description) ? _description : "Desplazarse hacia la posición indicada";
+        }
+
         private Transform ResolvePlayerTransform(NPCController npc)
         {
             if (Camera.main != null)

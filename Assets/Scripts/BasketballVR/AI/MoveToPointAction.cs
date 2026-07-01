@@ -8,6 +8,11 @@ namespace BasketballVR.AI
         [SerializeField] private Vector3 _targetPosition;
         [SerializeField] private float _stoppingDistance = 0.1f;
 
+        public override string Description
+        {
+            get => !string.IsNullOrEmpty(_description) ? _description : "Esperar a posicionamiento del compañero";
+        }
+
         public override void Initialize(NPCController npc)
         {
             base.Initialize(npc);
