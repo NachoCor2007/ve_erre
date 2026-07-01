@@ -19,6 +19,12 @@ namespace BasketballVR.AI
         {
             base.Initialize(npc);
             _ballPassed = false;
+
+            if (npc.Animator != null)
+            {
+                npc.Animator.SetBool("isWaiting", true);
+                npc.Animator.SetBool("isRunning", false);
+            }
         }
 
         public override void Execute(NPCController npc)
@@ -62,7 +68,15 @@ namespace BasketballVR.AI
 
         public override bool IsFinished(NPCController npc)
         {
-            return _ballPassed;
+            if (_ballPassed)
+            {
+                if (npc.Animator != null)
+                {
+                    npc.Animator.SetBool("isWaiting", false);
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

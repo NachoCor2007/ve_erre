@@ -10,6 +10,7 @@ namespace BasketballVR.AI
         [SerializeField] private List<NPCAction> _actionSequence;
         
         private NavMeshAgent _navMeshAgent;
+        private Animator _animator;
         private int _currentActionIndex = 0;
         private bool _actionsCloned = false;
 
@@ -21,6 +22,7 @@ namespace BasketballVR.AI
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Start()
@@ -37,6 +39,12 @@ namespace BasketballVR.AI
 
         private void InitializeActions()
         {
+            if (_animator != null)
+            {
+                _animator.SetBool("isRunning", false);
+                _animator.SetBool("isWaiting", false);
+            }
+
             if (!_actionsCloned && _actionSequence != null)
             {
                 List<NPCAction> clonedSequence = new List<NPCAction>();
@@ -80,6 +88,11 @@ namespace BasketballVR.AI
         {
             if (_actionSequence == null || _actionSequence.Count == 0 || _currentActionIndex >= _actionSequence.Count)
             {
+                if (_animator != null)
+                {
+                    _animator.SetBool("isRunning", false);
+                    _animator.SetBool("isWaiting", false);
+                }
                 return;
             }
 
@@ -115,6 +128,7 @@ namespace BasketballVR.AI
         }
 
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
+        public Animator Animator => _animator;
 
         public NPCAction CurrentAction
         {

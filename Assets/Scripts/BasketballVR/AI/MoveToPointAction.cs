@@ -12,6 +12,12 @@ namespace BasketballVR.AI
         {
             base.Initialize(npc);
             npc.NavMeshAgent.SetDestination(_targetPosition);
+
+            if (npc.Animator != null)
+            {
+                npc.Animator.SetBool("isRunning", true);
+                npc.Animator.SetBool("isWaiting", false);
+            }
         }
 
         public override void Execute(NPCController npc)
@@ -30,7 +36,15 @@ namespace BasketballVR.AI
                 return false;
             }
 
-            return npc.NavMeshAgent.remainingDistance <= npc.NavMeshAgent.stoppingDistance + _stoppingDistance;
+            bool finished = npc.NavMeshAgent.remainingDistance <= npc.NavMeshAgent.stoppingDistance + _stoppingDistance;
+            if (finished)
+            {
+                if (npc.Animator != null)
+                {
+                    npc.Animator.SetBool("isRunning", false);
+                }
+            }
+            return finished;
         }
     }
 }

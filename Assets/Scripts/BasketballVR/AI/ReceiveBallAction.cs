@@ -24,6 +24,12 @@ namespace BasketballVR.AI
             _hasReceivedBall = false;
             npc.NavMeshAgent.isStopped = true; // The NPC waits in place
 
+            if (npc.Animator != null)
+            {
+                npc.Animator.SetBool("isWaiting", true);
+                npc.Animator.SetBool("isRunning", false);
+            }
+
             if (_triggerSound != null)
             {
                 PlaySoundAtPoint(_triggerSound, npc.transform.position, _soundMinDistance, _soundMaxDistance, _soundVolume);
@@ -52,6 +58,10 @@ namespace BasketballVR.AI
             if (_hasReceivedBall)
             {
                 npc.NavMeshAgent.isStopped = false; // Allow movement for the next action
+                if (npc.Animator != null)
+                {
+                    npc.Animator.SetBool("isWaiting", false);
+                }
                 return true;
             }
             return false;
