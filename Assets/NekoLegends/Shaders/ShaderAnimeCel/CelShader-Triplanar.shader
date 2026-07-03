@@ -13,7 +13,7 @@ Shader "Neko Legends/Cel Shader/Triplanar"
         _Rim_Lighting("Rim Lighting", Range(-1, 1)) = -0.01
         _Rim_Brightness("Rim Brightness", Range(0, 5)) = 1
         _Ambient_Self_Lighting("Ambient Self Lighting", Range(0, 1)) = 0
-        [NoScaleOffset]_Emissions_Mask("Emissions Mask", 2D) = "black" {}
+        [NoScaleOffset]_Emissions_Mask("Emissions Mask", 2D) = "white" {}
         [HideInInspector]_WorkflowMode("_WorkflowMode", Float) = 0
         [HideInInspector]_CastShadows("_CastShadows", Float) = 1
         [HideInInspector]_ReceiveShadows("_ReceiveShadows", Float) = 0

@@ -18,7 +18,7 @@ Shader "Neko Legends/Cel Shader/Anime Shader v2"
         _Rim_Lighting("Rim Lighting", Range(-1, 1)) = -0.01
         _Rim_Brightness("Rim Brightness", Range(0, 5)) = 1
         _Ambient_Self_Lighting("Ambient Self Lighting", Range(0, 1)) = 0
-        [NoScaleOffset]_Emissions_Mask("Emissions Mask", 2D) = "black" {}
+        [NoScaleOffset]_Emissions_Mask("Emissions Mask", 2D) = "white" {}
         _Emissions_Color("Emissions Color", Color) = (1, 1, 1, 0)
         [Header(Normals)]
         [ToggleUI]_UseNormalMap("UseNormalMap", Float) = 0

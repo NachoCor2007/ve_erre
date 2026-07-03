@@ -12,6 +12,7 @@ public class HoopGlowController : MonoBehaviour
     private Material[] _hoopMaterials;
     private bool _isGlowing = false;
     private Color[] _baseColors;
+    private string[] _emissionPropNames;
 
     private void Start()
     {
@@ -25,21 +26,50 @@ public class HoopGlowController : MonoBehaviour
             // Gets local instances of all materials to avoid modifying the assets on disk
             _hoopMaterials = _hoopRenderer.materials;
             _baseColors = new Color[_hoopMaterials.Length];
+            _emissionPropNames = new string[_hoopMaterials.Length];
 
             for (int i = 0; i < _hoopMaterials.Length; i++)
             {
-                // Save the base emission color configured in the inspector
-                _baseColors[i] = _hoopMaterials[i].GetColor("_EmissionColor");
-                
-                // If the emission color is black or default, default to white so it can glow
-                if (_baseColors[i] == Color.black)
+                Material mat = _hoopMaterials[i];
+                if (mat == null) continue;
+
+                // Determine the correct emission property name for this material/shader
+                if (mat.HasProperty("_EmissionColor"))
                 {
-                    _baseColors[i] = Color.white;
+                    _emissionPropNames[i] = "_EmissionColor";
+                }
+                else if (mat.HasProperty("_Emissions_Color"))
+                {
+                    _emissionPropNames[i] = "_Emissions_Color";
+                }
+                else
+                {
+                    _emissionPropNames[i] = null;
                 }
 
-                // Start with emission off
-                _hoopMaterials[i].SetColor("_EmissionColor", Color.black);
-                _hoopMaterials[i].DisableKeyword("_EMISSION");
+                if (_emissionPropNames[i] != null)
+                {
+                    // Save the base emission color configured in the inspector
+                    _baseColors[i] = mat.GetColor(_emissionPropNames[i]);
+                    
+                    // If the emission color is black or default (regardless of alpha), default to white so it can glow
+                    if (_baseColors[i].r == 0f && _baseColors[i].g == 0f && _baseColors[i].b == 0f)
+                    {
+                        _baseColors[i] = Color.white;
+                    }
+                    else
+                    {
+                        // Ensure alpha is 1 so color multiplication works correctly
+                        _baseColors[i].a = 1f;
+                    }
+
+                    // Start with emission off
+                    mat.SetColor(_emissionPropNames[i], Color.black);
+                    if (_emissionPropNames[i] == "_EmissionColor")
+                    {
+                        mat.DisableKeyword("_EMISSION");
+                    }
+                }
             }
         }
         else
@@ -56,11 +86,11 @@ public class HoopGlowController : MonoBehaviour
         _isGlowing = true;
         if (_hoopMaterials != null)
         {
-            foreach (var mat in _hoopMaterials)
+            for (int i = 0; i < _hoopMaterials.Length; i++)
             {
-                if (mat != null)
+                if (_hoopMaterials[i] != null && _emissionPropNames[i] == "_EmissionColor")
                 {
-                    mat.EnableKeyword("_EMISSION");
+                    _hoopMaterials[i].EnableKeyword("_EMISSION");
                 }
             }
         }
@@ -74,12 +104,15 @@ public class HoopGlowController : MonoBehaviour
         _isGlowing = false;
         if (_hoopMaterials != null)
         {
-            foreach (var mat in _hoopMaterials)
+            for (int i = 0; i < _hoopMaterials.Length; i++)
             {
-                if (mat != null)
+                if (_hoopMaterials[i] != null && _emissionPropNames[i] != null)
                 {
-                    mat.SetColor("_EmissionColor", Color.black);
-                    mat.DisableKeyword("_EMISSION");
+                    _hoopMaterials[i].SetColor(_emissionPropNames[i], Color.black);
+                    if (_emissionPropNames[i] == "_EmissionColor")
+                    {
+                        _hoopMaterials[i].DisableKeyword("_EMISSION");
+                    }
                 }
             }
         }
@@ -94,9 +127,9 @@ public class HoopGlowController : MonoBehaviour
             
             for (int i = 0; i < _hoopMaterials.Length; i++)
             {
-                if (_hoopMaterials[i] != null)
+                if (_hoopMaterials[i] != null && _emissionPropNames[i] != null)
                 {
-                    _hoopMaterials[i].SetColor("_EmissionColor", _baseColors[i] * emissionMultiplier);
+                    _hoopMaterials[i].SetColor(_emissionPropNames[i], _baseColors[i] * emissionMultiplier);
                 }
             }
         }
