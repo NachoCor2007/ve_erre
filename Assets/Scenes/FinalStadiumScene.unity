@@ -17986,67 +17986,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5289182684458692541, guid: e5db301629853dd4a99835fa70099d79, type: 3}
   m_PrefabInstance: {fileID: 336794620}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &337499924
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1228796215698836359, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_Name
-      value: Banana Man
-      objectReference: {fileID: 0}
-    - target: {fileID: 1228796215698836359, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.231325
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.000000036474262
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1435593
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.2676123
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.96352667
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -148.956
-      objectReference: {fileID: 0}
-    - target: {fileID: 1893305186833830205, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
 --- !u!1001 &338804890
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66755,7 +66694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5289182684458692542, guid: e5db301629853dd4a99835fa70099d79, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: HoopGlowController, Assembly-CSharp
+      value: EmissiveGlowController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5289182684458692542, guid: e5db301629853dd4a99835fa70099d79, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -68294,71 +68233,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: dcd0a66ec1b01c5438483d8603e8eacc, type: 3}
   m_PrefabInstance: {fileID: 1321177233}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1325238711
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6747997930862398541, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.7617369
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.00000014861587
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.2688072
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6854702145005453075, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7897420823872174766, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_Name
-      value: UrbanManV1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7897420823872174766, guid: 96d98df100c25db4598807162b10c097, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 96d98df100c25db4598807162b10c097, type: 3}
 --- !u!1001 &1330705202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74557,12 +74431,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1442929701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6da15cbe1770214f88a23cb93809de4, type: 3}
+  m_Script: {fileID: 11500000, guid: 8bcf82ab6b9b4f91b7d5e683f2a893cb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HoopGlowController
-  _hoopRenderer: {fileID: 1442929703}
+  m_EditorClassIdentifier: Assembly-CSharp::EmissiveGlowController
+  _renderers:
+  - {fileID: 1442929703}
   _pulseSpeed: 4
   _maxIntensity: 3
+  _autoStart: 0
 --- !u!1001 &1443471590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -113354,5 +113230,3 @@ SceneRoots:
   - {fileID: 1273913779}
   - {fileID: 1143680903}
   - {fileID: 900445175}
-  - {fileID: 1325238711}
-  - {fileID: 337499924}

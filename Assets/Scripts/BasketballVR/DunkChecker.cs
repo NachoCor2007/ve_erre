@@ -10,7 +10,7 @@ namespace BasketballVR
         [SerializeField] private string _ballTag = "Ball";
         [SerializeField] private PlayManager _playManager;
         [SerializeField] private GameObject _playCompletedUIReference;
-        [SerializeField] private HoopGlowController _glowController;
+        [SerializeField] private EmissiveGlowController _glowController;
 
         [Header("Audio Settings")]
         [SerializeField] private AudioSource _audioSource;
@@ -33,15 +33,15 @@ namespace BasketballVR
         private void Start()
         {
             // Search in parent hierarchy first, then fall back to a global search in the scene
-            _glowController = GetComponentInParent<HoopGlowController>();
+            _glowController = GetComponentInParent<EmissiveGlowController>();
             if (_glowController == null)
             {
-                _glowController = FindFirstObjectByType<HoopGlowController>();
+                _glowController = FindFirstObjectByType<EmissiveGlowController>();
             }
             
             if (_glowController == null)
             {
-                Debug.LogWarning("HoopGlowController not found in parent hierarchy or scene. Emissive glow will not be triggered.");
+                Debug.LogWarning("EmissiveGlowController not found in parent hierarchy or scene. Emissive glow will not be triggered.");
             }
 
             if (_audioSource == null)
