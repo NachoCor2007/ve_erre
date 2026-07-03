@@ -2642,6 +2642,7 @@ GameObject:
   - component: {fileID: 6747997930862398541}
   - component: {fileID: 2175061424680444371}
   - component: {fileID: 70159949925031558}
+  - component: {fileID: 8430473314398979059}
   m_Layer: 0
   m_Name: UrbanManV1
   m_TagString: Untagged
@@ -2732,6 +2733,27 @@ MonoBehaviour:
   ball: {fileID: 0}
   basketHoop: {fileID: 0}
   handTransform: {fileID: 3650204056709134781}
+--- !u!114 &8430473314398979059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897420823872174766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bcf82ab6b9b4f91b7d5e683f2a893cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EmissiveGlowController
+  _renderers:
+  - {fileID: 6954347227313685844}
+  - {fileID: 3036810942091492952}
+  - {fileID: 8444950719197368800}
+  - {fileID: 4286569317517693252}
+  - {fileID: 8912528057112786591}
+  _pulseSpeed: 4
+  _maxIntensity: 3
+  _autoStart: 0
 --- !u!1 &8140722602787851685
 GameObject:
   m_ObjectHideFlags: 0

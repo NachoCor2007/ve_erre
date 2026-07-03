@@ -35,6 +35,12 @@ namespace BasketballVR.AI
                 npc.Animator.SetBool("isRunning", false);
             }
 
+            var glowController = npc.GetComponentInChildren<EmissiveGlowController>();
+            if (glowController != null)
+            {
+                glowController.StartGlow();
+            }
+
             if (_triggerSound != null)
             {
                 PlaySoundAtPoint(_triggerSound, npc.transform.position, _soundMinDistance, _soundMaxDistance, _soundVolume);
@@ -67,6 +73,13 @@ namespace BasketballVR.AI
                 {
                     npc.Animator.SetBool("isWaiting", false);
                 }
+
+                var glowController = npc.GetComponentInChildren<EmissiveGlowController>();
+                if (glowController != null)
+                {
+                    glowController.StopGlow();
+                }
+
                 return true;
             }
             return false;
