@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd30aaae83370e45838b26497408517, type: 3}
   m_Name: NPCConfig2
   m_EditorClassIdentifier: Assembly-CSharp::ScriptableObjects.NPCConfig
-  _npcPrefab: {fileID: 1228796215698836359, guid: 148ff8914ffaf794eb39559d8f140e26, type: 3}
+  _npcPrefab: {fileID: 7897420823872174766, guid: 96d98df100c25db4598807162b10c097, type: 3}
   _npcLocation: {fileID: 11400000, guid: f7c26b336d0194b48b6136446ceeee90, type: 2}
   _actionSequence:
   - {fileID: 11400000, guid: 2c1409e150842ff4c83555cda274e6e7, type: 2}
