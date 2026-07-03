@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.XR.CoreUtils;
+using System.Collections.Generic;
 
 namespace BasketballVR.AI
 {
@@ -76,6 +77,11 @@ namespace BasketballVR.AI
                 var locker = _spawnedPointer.AddComponent<FixedWorldTransform>();
                 locker.position = _targetPosition;
                 locker.rotation = _pointerPrefab.transform.rotation;
+
+                // Add the dashed guide line component
+                var guide = _spawnedPointer.AddComponent<DashedGuideLine>();
+                guide.playerTransform = _playerTransform;
+                guide.targetPosition = _targetPosition;
 
                 // Parent to the NPC controller transform so it is cleaned up when the NPC is destroyed
                 _spawnedPointer.transform.SetParent(npc.transform, true);
@@ -179,6 +185,98 @@ namespace BasketballVR.AI
         {
             transform.position = position;
             transform.rotation = rotation;
+        }
+    }
+
+    /// <summary>
+    /// Dynamically draws a dashed guide line composed of flat road-style rectangles 
+    /// between the pointer destination and the player's feet.
+    /// </summary>
+    public class DashedGuideLine : MonoBehaviour
+    {
+        public Transform playerTransform;
+        public Vector3 targetPosition;
+
+        [Header("Dash Settings")]
+        [SerializeField] private float _dashLength = 0.3f;
+        [SerializeField] private float _dashWidth = 0.06f;
+        [SerializeField] private float _dashSpacing = 0.3f;
+        [SerializeField] private float _heightOffset = 0.015f; // Slight height to prevent z-fighting with the court floor
+        [SerializeField] private Material _dashMaterial;
+
+        private List<GameObject> _dashes = new List<GameObject>();
+
+        private void Start()
+        {
+            // Attempt to retrieve a matching material from the pointer so colors/glow are cohesive
+            if (_dashMaterial == null)
+            {
+                var renderer = GetComponentInChildren<Renderer>();
+                if (renderer != null && renderer.sharedMaterial != null)
+                {
+                    _dashMaterial = renderer.sharedMaterial;
+                }
+            }
+        }
+
+        private void Update()
+        {
+            if (playerTransform == null) return;
+
+            Vector3 startPoint = targetPosition;
+            Vector3 endPoint = playerTransform.position;
+            // Align Y to the target floor level
+            endPoint.y = startPoint.y;
+
+            float distance = Vector3.Distance(startPoint, endPoint);
+            float step = _dashLength + _dashSpacing;
+            int requiredDashes = Mathf.Max(0, Mathf.FloorToInt(distance / step));
+
+            // Dynamically manage the pool of dash objects
+            while (_dashes.Count < requiredDashes)
+            {
+                GameObject dash = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                dash.name = $"RoadDash_{_dashes.Count}";
+                
+                // Remove collider so dashes don't interfere with physics or player movement
+                Destroy(dash.GetComponent<Collider>());
+
+                if (_dashMaterial != null)
+                {
+                    var renderer = dash.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        renderer.material = _dashMaterial;
+                    }
+                }
+
+                // Parent to the pointer so it automatically deletes when the pointer is cleaned up
+                dash.transform.SetParent(transform, true);
+                _dashes.Add(dash);
+            }
+
+            Vector3 direction = (endPoint - startPoint).normalized;
+            Quaternion rotation = direction != Vector3.zero ? Quaternion.LookRotation(direction, Vector3.up) : Quaternion.identity;
+
+            for (int i = 0; i < _dashes.Count; i++)
+            {
+                GameObject dash = _dashes[i];
+                if (i < requiredDashes)
+                {
+                    dash.SetActive(true);
+                    float t = (i * step + _dashLength / 2f) / distance;
+                    Vector3 pos = Vector3.Lerp(startPoint, endPoint, t);
+                    pos.y += _heightOffset;
+
+                    dash.transform.position = pos;
+                    dash.transform.rotation = rotation;
+                    dash.transform.localScale = new Vector3(_dashWidth, 0.002f, _dashLength);
+                }
+                else
+                {
+                    dash.SetActive(false);
+                }
+            }
         }
     }
 }

@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 483a859a05c3f3e4891118be2b0a6c74, type: 3}
   m_Name: PassBallToPlayer2
   m_EditorClassIdentifier: Assembly-CSharp::BasketballVR.AI.PassBallAction
+  _description: 
+  _showInUI: 1
   _passForce: 10
-  _upwardForce: 2
+  _bouncePassDistanceThreshold: 4
+  _playerChestOffsetFromHead: 0.5
+  _playerChestOffsetFromFloor: 1.2
